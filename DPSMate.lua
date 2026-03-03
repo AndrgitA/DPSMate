@@ -115,6 +115,9 @@ end
 
 local DPSSettings = {}
 local DPSHist = {}
+local fontRefreshAt = nil
+local savedFontSettings = nil
+local GT = GetTime
 
 -- Begin functions
 
@@ -123,9 +126,30 @@ function DPSMate:OnLoad()
 	SlashCmdList["DPSMate"] = function(msg) DPSMate:SlashCMDHandler(msg) end
 	
 	DPSMate:UpdatePointer()
-	
+
+	-- Snapshot font settings before skinning addons can overwrite them
+	savedFontSettings = {}
+	for k, w in pairs(DPSSettings["windows"]) do
+		savedFontSettings[k] = {
+			barfont = w["barfont"],
+			barfontsize = w["barfontsize"],
+			barfontflag = w["barfontflag"],
+			titlebarfont = w["titlebarfont"],
+			titlebarfontsize = w["titlebarfontsize"],
+			titlebarfontflag = w["titlebarfontflag"],
+		}
+	end
+
 	DPSMate:InitializeFrames()
 	DPSMate.Options:InitializeConfigMenu()
+
+	if DPSMate.L.UpdateFrameTexts then
+		DPSMate.L.UpdateFrameTexts()
+	end
+
+	-- Schedule a deferred font refresh so that font settings survive
+	-- skinning addons (e.g. pfUI) that override fonts after load.
+	fontRefreshAt = GT() + 1
 end
 
 function DPSMate:UpdatePointer()
@@ -142,6 +166,16 @@ function DPSMate:SlashCMDHandler(msg)
 			DPSMate.Options:Unlock()
 		elseif cmd == "config" then
 			DPSMate_ConfigMenu:Show()
+		elseif cmd == "reset" then
+			DPSMate:SendMessage(DPSMate.L["resetconfirm"])
+		elseif cmd == "resetconfirm" then
+			DPSMateUser = {}
+			DPSMateAbility = {}
+			DPSMate.DB.abilitylen = 1
+			DPSMate.DB.userlen = 1
+			DPSMate.UserId = {}
+			DPSMate.Options:PopUpAccept(true, true)
+			DPSMate:SendMessage(DPSMate.L["resetdone"])
 		elseif cmd == "showAll" then
 			for _, val in DPSSettings["windows"] do DPSMate.Options:Show(getglobal("DPSMate_"..val["name"])) end
 		elseif cmd == "hideAll" then
@@ -176,6 +210,7 @@ function DPSMate:SlashCMDHandler(msg)
 			DPSMate:SendMessage(DPSMate.L["slashshow"])
 			DPSMate:SendMessage(DPSMate.L["slashhide"])
 			DPSMate:SendMessage(DPSMate.L["slashconfig"])
+			DPSMate:SendMessage(DPSMate.L["slashreset"])
 		end
 	end
 end
@@ -350,6 +385,7 @@ function DPSMate:TableLength(t)
 	if (t) then
 		count = getn(t)
 		if count<=1 then
+			count = 0
 			for _,_ in pairs(t) do
 				count = count + 1
 			end
@@ -398,10 +434,130 @@ end
 function DPSMate:CopyTable(t)
 	local s={}
 	for cat, val in pairs(t) do
-		s[cat] = val
+		if type(val) == "table" then
+			s[cat] = self:CopyTable(val)
+		else
+			s[cat] = val
+		end
 	end
 	return s
 end
+
+function DPSMate:CopyTableStripInstant(t, depth)
+	local s={}
+	depth = depth or 0
+	for cat, val in pairs(t) do
+		if depth >= 2 and cat == "i" then
+			-- Skip ["i"] instant-damage dictionaries at ability level
+		elseif type(val) == "table" then
+			s[cat] = self:CopyTableStripInstant(val, depth + 1)
+		else
+			s[cat] = val
+		end
+	end
+	return s
+end
+
+function DPSMate:PruneStaleUsers()
+	-- Collect all user IDs referenced in active metric data and history
+	local activeIds = {}
+	local metrics = {DPSMateDamageDone, DPSMateDamageTaken, DPSMateEDD, DPSMateEDT, DPSMateTHealing, DPSMateEHealing, DPSMateOverhealing, DPSMateHealingTaken, DPSMateEHealingTaken, DPSMateOverhealingTaken, DPSMateAbsorbs, DPSMateDispels, DPSMateDeaths, DPSMateInterrupts, DPSMateAurasGained, DPSMateThreat, DPSMateFails, DPSMateCCBreaker}
+	-- Check active data (mode [1] and [2])
+	for _, metric in pairs(metrics) do
+		if metric then
+			for mode = 1, 2 do
+				if metric[mode] then
+					for uid, _ in pairs(metric[mode]) do
+						activeIds[uid] = true
+					end
+				end
+			end
+		end
+	end
+	-- Check history segments
+	for cat, segments in pairs(DPSMateHistory) do
+		if cat ~= "names" and type(segments) == "table" then
+			for _, segment in pairs(segments) do
+				if type(segment) == "table" then
+					for uid, _ in pairs(segment) do
+						activeIds[uid] = true
+					end
+				end
+			end
+		end
+	end
+	-- Remove users whose IDs aren't referenced anywhere
+	local removed = 0
+	for name, data in pairs(DPSMateUser) do
+		if data[1] and not activeIds[data[1]] then
+			DPSMateUser[name] = nil
+			removed = removed + 1
+		end
+	end
+	if removed > 0 then
+		self.UserId = nil
+	end
+end
+
+-- Strip ["i"] sub-tables from all modes of all metrics that use them.
+-- Covers damage/healing/threat (per-second time buckets) as well as dispels,
+-- interrupts, and absorbs (event log arrays stored under ["i"]).
+-- Called on login and on logout to keep SavedVariables compact.
+--
+-- A recursive walk is used: wherever ["i"] is a table it is cleared to {}.
+-- Numbers stored under ["i"] are left untouched.
+-- Using {} rather than nil keeps combat event writers safe.
+local function stripInstantRecursive(t)
+	for k, v in pairs(t) do
+		if k == "i" and type(v) == "table" then
+			t[k] = {}
+		elseif k ~= "i" and type(v) == "table" then
+			stripInstantRecursive(v)
+		end
+	end
+end
+
+function DPSMate:StripInstantFromMode1()
+	local metrics = {DPSMateDamageDone, DPSMateDamageTaken, DPSMateEDD, DPSMateEDT,
+	                 DPSMateTHealing, DPSMateEHealing, DPSMateOverhealing, DPSMateHealingTaken,
+	                 DPSMateEHealingTaken, DPSMateOverhealingTaken, DPSMateThreat,
+	                 DPSMateDispels, DPSMateInterrupts, DPSMateAbsorbs}
+	for _, metric in pairs(metrics) do
+		if metric then
+			if metric[1] then stripInstantRecursive(metric[1]) end
+			if metric[2] then stripInstantRecursive(metric[2]) end
+		end
+	end
+end
+
+-- Collapse AurasGained timestamp arrays in Mode [1] and [2] into compact uptime totals.
+-- path[1] (gain times) and path[2] (loss times) grow unboundedly with each buff
+-- application. The pre-computed total is stored in path[7] so EvalTable can still
+-- display accurate uptime percentages across sessions.
+function DPSMate:CollapseAuraTimestamps()
+	if not DPSMateAurasGained then return end
+	for mode = 1, 2 do
+		local modeData = DPSMateAurasGained[mode]
+		if modeData then
+			for uid, abilities in pairs(modeData) do
+				for abilityId, path in pairs(abilities) do
+					if type(path) == "table" and type(path[1]) == "table" then
+						local total = path[7] or 0
+						for i, gainTime in pairs(path[1]) do
+							if path[2] and path[2][i] then
+								total = total + (path[2][i] - gainTime)
+							end
+						end
+						path[7] = total
+						path[1] = {}
+						path[2] = {}
+					end
+				end
+			end
+		end
+	end
+end
+
 
 function DPSMate:GetUserById(id)
 	if not self.UserId or not self.UserId[id] then
@@ -411,6 +567,21 @@ function DPSMate:GetUserById(id)
 		end
 	end
 	return self.UserId[id]
+end
+
+function DPSMate:GetPetsByOwner(arr)
+	local lookup = {}
+	for cat, _ in pairs(arr) do
+		local name = self:GetUserById(cat)
+		if name and DPSMateUser[name] and DPSMateUser[name][4] and DPSMateUser[name][6] then
+			local oid = DPSMateUser[name][6]
+			if not lookup[oid] then
+				lookup[oid] = {}
+			end
+			table.insert(lookup[oid], cat)
+		end
+	end
+	return lookup
 end
 
 function DPSMate:GetAbilityById(id)
@@ -451,10 +622,54 @@ function DPSMate:ScaleDown(arr, start)
 	return t
 end
 
+function DPSMate:RefreshFonts()
+	if not DPSSettings["windows"][1] then return end
+	if not savedFontSettings then return end
+	local fonts = self.Options.fonts
+	local flags = self.Options.fontflags
+	for k, c in pairs(DPSSettings["windows"]) do
+		local saved = savedFontSettings[k]
+		if saved then
+			-- Restore user's saved font settings into the live table
+			c["barfont"] = saved.barfont
+			c["barfontsize"] = saved.barfontsize
+			c["barfontflag"] = saved.barfontflag
+			c["titlebarfont"] = saved.titlebarfont
+			c["titlebarfontsize"] = saved.titlebarfontsize
+			c["titlebarfontflag"] = saved.titlebarfontflag
+		end
+		local barFont = fonts[c["barfont"]]
+		local barSize = c["barfontsize"]
+		local barFlag = flags[c["barfontflag"]]
+		local titleFont = fonts[c["titlebarfont"]]
+		local titleSize = c["titlebarfontsize"]
+		local titleFlag = flags[c["titlebarfontflag"]]
+		local name = c["name"]
+		_G("DPSMate_"..name.."_Head_Font"):SetFont(titleFont, titleSize, titleFlag)
+		_G("DPSMate_"..name.."_ScrollFrame_Child_Total_Name"):SetFont(barFont, barSize, barFlag)
+		_G("DPSMate_"..name.."_ScrollFrame_Child_Total_Value"):SetFont(barFont, barSize, barFlag)
+		for i=1, 40 do
+			_G("DPSMate_"..name.."_ScrollFrame_Child_StatusBar"..i.."_Name"):SetFont(barFont, barSize, barFlag)
+			_G("DPSMate_"..name.."_ScrollFrame_Child_StatusBar"..i.."_Value"):SetFont(barFont, barSize, barFlag)
+		end
+	end
+	savedFontSettings = nil
+end
+
 local framePointerCache = {}
+function DPSMate:InvalidateFrameCache()
+	framePointerCache = {}
+end
 function DPSMate:SetStatusBarValue()
-	
+
 	if not DPSSettings["windows"][1] or self.Options.TestMode then return end
+
+	-- Deferred font refresh: wait ~1s after load for skinning addons to finish,
+	-- then re-apply saved font settings once.
+	if fontRefreshAt and GT() >= fontRefreshAt then
+		fontRefreshAt = nil
+		self:RefreshFonts()
+	end
 	local arr, cbt, ecbt, user, val, perc, strt, statusbar, r, g, b, img, len
 	for k,c in pairs(DPSSettings.windows) do
 		arr, cbt, ecbt = self:GetMode(k)
@@ -491,10 +706,18 @@ function DPSMate:SetStatusBarValue()
 				r,g,b,img = self:GetClassColor(user[i])
 				statusbar:SetStatusBarColor(r,g,b, 1)
 
+				local displayName = user[i]
+				if not DPSMateSettings["mergepets"] and DPSMateUser[user[i]] and DPSMateUser[user[i]][4] then
+					local ownerID = DPSMateUser[user[i]][6]
+					if ownerID then
+						local ownerName = self:GetUserById(ownerID)
+						if ownerName then displayName = user[i].." ("..ownerName..")" end
+					end
+				end
 				if c["ranks"] then 
-					FPC[4+i][2]:SetText(i..". "..user[i])
+					FPC[4+i][2]:SetText(i..". "..displayName)
 				else
-					FPC[4+i][2]:SetText(user[i])
+					FPC[4+i][2]:SetText(displayName)
 				end
 				FPC[4+i][3]:SetText(val[i])
 				FPC[4+i][4]:SetTexture("Interface\\AddOns\\DPSMate\\images\\class\\"..img)
@@ -517,8 +740,8 @@ end
 
 function DPSMate:strrev(str)
 	local res, len = {}, strlen(str)
-	for i=0, len-1 do
-		res[i] = strsub(str, len-i, len-i)
+	for i=1, len do
+		res[i] = strsub(str, len-i+1, len-i+1)
 	end
 	return tconcat(res);
 end
@@ -560,19 +783,20 @@ function DPSMate:FormatNumbers(dmg,total,sort,k)
 end
 
 function DPSMate:ApplyFilter(key, name)
-	if not key or not name or not DPSMateUser[name] then return true end
+	if not name or not DPSMateUser[name] then return false end
+	if not key then return true end
 	local class = DPSMateUser[name][2] or "warrior"
 	local path = DPSSettings["windows"][key]
 	if path["grouponly"] then
-		if not DPSMate.Parser.TargetParty[name] and DPSMate.Parser.TargetParty ~= {} then
+		if not DPSMate.Parser.TargetParty[name] and next(DPSMate.Parser.TargetParty) ~= nil then
 			return false
 		end
 	end
 
-	if path["filterpeople"] ~= "" then
+	if path["filterpeople"] and path["filterpeople"] ~= "" then
 		-- Certain people
 		t = {}
-		strgsub(path["filterpeople"], "(.-),", func)
+		strgsub(path["filterpeople"]..",", "(.-),", func)
 		for cat, val in pairs(t) do
 			if name == val then
 				return true
@@ -697,7 +921,7 @@ end
 function DPSMate:Broadcast(type, who, what, with, value, failtype)
 	if DPSSettings["broadcasting"] then
 		if IsRaidLeader() or IsRaidOfficer() then
-			ch = "RAID"
+			local ch = "RAID"
 			if DPSSettings["bcrw"] then
 				ch = "RAID_WARNING"
 			end
@@ -728,7 +952,7 @@ function DPSMate:Broadcast(type, who, what, with, value, failtype)
 end
 
 function DPSMate:SendMessage(msg)
-	DEFAULT_CHAT_FRAME:AddMessage("|cFFFF8080"..self.L["name"].."|r: "..msg)
+	DEFAULT_CHAT_FRAME:AddMessage("|cFFFF8080"..self.L["name"].."|r: "..tostring(msg))
 end
 
 function DPSMate:Register(prefix, table, name)

@@ -104,7 +104,6 @@ DPSMate.Parser.procs = {
 	["Speed"] = true,
 	["Invulnerability"] = true,
 	["Aura of the Blue Dragon"] = true, -- Mana Darkmoon card
-	["Invulnerability"] = true,
 	["Battle Squawk"] = true,
 	["Devilsaur Fury"] = true,
 	["Furious Howl"] = true,
@@ -196,8 +195,7 @@ DPSMate.Parser.procs = {
 	["Nature's Swiftness"] = true,
 	["Ancestral Healing"] = true,
 	["Reincarnation"] = true,
-	["Elemental Mastery"] = true,
-	
+
 	-- Warlock
 	["Vampirism"] = true,
 	["Nightfall"] = true,
@@ -298,6 +296,9 @@ DPSMate.Parser.DmgProcs = {
 	--@region Andrgit Added
 	["Burning Hatred"] = true, -- Ornate Bloodstone Dagger
 	--@endregion
+}
+DPSMate.Parser.IgnoredDmgSpells = {
+	["Arcane Instability"] = true,
 }
 DPSMate.Parser.TargetParty = {}
 DPSMate.Parser.RCD = {
@@ -526,8 +527,10 @@ function DPSMate.Parser:OnLoad()
 	self.player, self.realm = UnitName("player")
 	_,playerclass = UnitClass("player")
 	DPSMate.DB:BuildUser(self.player, strlower(playerclass))
-	DPSMateUser[self.player][2] = strlower(playerclass)
-	DPSMateUser[self.player][8] = UL("player")
+	if DPSMateUser[self.player] then
+		DPSMateUser[self.player][2] = strlower(playerclass)
+		DPSMateUser[self.player][8] = UL("player")
+	end
 	-- Prevent this addon from causing issues
 	if SW_FixLogStrings then
 		DPSMate:SendMessage("Please disable SW_StatsFixLogStrings and SW_Stats. Those addons cause issues.")
@@ -604,14 +607,16 @@ end
 local UnitDebuff = UnitDebuff
 DPSMate.Parser.PLAYER_AURAS_CHANGED = function(unit)
 	local aura, debuffDispelType
-	for i=1, 4 do
-		DPSTool:SetPlayerBuff(GetPlayerBuff(i, "HARMFUL"))
-		aura = DPSToolTextLeft1:GetText()
-		DPSTool:Hide()
-		if not aura then break end
-		_, _, debuffDispelType = UnitDebuff("player", i);
-		if debuffDispelType and DPSMateAbility[aura] then
-			DPSMateAbility[aura][2] = debuffDispelType
+	if DPSTool.SetPlayerBuff then
+		for i=1, 4 do
+			DPSTool:SetPlayerBuff(GetPlayerBuff(i, "HARMFUL"))
+			aura = DPSToolTextLeft1:GetText()
+			DPSTool:Hide()
+			if not aura then break end
+			_, _, debuffDispelType = UnitDebuff("player", i);
+			if debuffDispelType and DPSMateAbility[aura] then
+				DPSMateAbility[aura][2] = debuffDispelType
+			end
 		end
 	end
 end
@@ -814,4 +819,12 @@ DPSMate.Parser.CHAT_MSG_SPELL_PET_DAMAGE = function(arg1)
 	this:PetSpellDamage(arg1)
 end
 
-DPSMate.Parser:SetScript("OnEvent", function() if this[event] then this[event](arg1) end end)
+DPSMate.Parser:SetScript("OnEvent", function()
+	if this[event] then
+		local msg = arg1
+		if msg and strfind(event, "CHAT_MSG_", 1, true) and not strfind(msg, " 's ", 1, true) and strfind(msg, "'s ", 1, true) then
+			msg = string.gsub(msg, "'s ", " 's ", 1)
+		end
+		this[event](msg)
+	end
+end)

@@ -269,8 +269,8 @@ function DPSMate.Modules.DetailsDamageTotal:GetTableValues()
 					time = tonumber(strformat("%.2f", DPSMateCombatTime["effective"][curKey][name] or 0))
 				end
 			end
-			tinsert(arr, {name, val["i"], crit, miss, time, totCrit, totMiss, cat})
-			total = total + val["i"]
+			tinsert(arr, {name, (val["i"] or 0), crit, miss, time, totCrit, totMiss, cat})
+			total = total + (val["i"] or 0)
 		end
 	end
 	local newArr = {}
@@ -317,9 +317,14 @@ end
 
 function DPSMate.Modules.DetailsDamageTotal:SortLineTable(uid)
 	local user = DPSMate:GetUserById(uid)
+	local uentry = DPSMateUser[user]
+	if not uentry then
+		return {}
+	end
+
 	local newArr = {}
 	-- user
-	for cat, val in db[DPSMateUser[user][1]] do
+	for cat, val in db[uentry[1]] do
 		if cat~="i" and val["i"] then
 			for c,v in val["i"] do
 				local i = 1
@@ -337,21 +342,23 @@ function DPSMate.Modules.DetailsDamageTotal:SortLineTable(uid)
 		end
 	end
 	-- Pet
-	if DPSMateUser[user][5] and DPSMateUser[user][5]~=user and DPSMateUser[DPSMateUser[user][5]] and DPSMateSettings["mergepets"]then
-		if db[DPSMateUser[DPSMateUser[user][5]][1]] then
-			for cat, val in db[DPSMateUser[DPSMateUser[user][5]][1]] do
-				if cat~="i" and val["i"] then
-					for c,v in val["i"] do
-						local i = 1
-						while true do
-							if not newArr[i] then
-								tinsert(newArr, i, {c,v})
-								break
-							elseif c<=newArr[i][1] then
-								tinsert(newArr, i, {c,v})
-								break
+	if DPSMateSettings["mergepets"] then
+		for pName, pEntry in pairs(DPSMateUser) do
+			if pEntry[4] and pEntry[6] == uentry[1] and pName ~= user and db[pEntry[1]] then
+				for cat, val in db[pEntry[1]] do
+					if cat~="i" and val["i"] then
+						for c,v in val["i"] do
+							local i = 1
+							while true do
+								if not newArr[i] then
+									tinsert(newArr, i, {c,v})
+									break
+								elseif c<=newArr[i][1] then
+									tinsert(newArr, i, {c,v})
+									break
+								end
+								i = i+1
 							end
-							i = i+1
 						end
 					end
 				end
@@ -420,7 +427,8 @@ function DPSMate.Modules.DetailsDamageTotal:LoadLegendButtons()
 		local name = DPSMate:GetUserById(val[2])
 		local font = _G("DPSMate_Details_DamageTotal_DiagramLegend_Child_C"..cat.."_Font")
 		font:SetText(name)
-		font:SetTextColor(DPSMate:GetClassColor(DPSMateUser[name][2]))
+		local uentry = DPSMateUser[name]
+		font:SetTextColor(DPSMate:GetClassColor(uentry and uentry[2]))
 		_G("DPSMate_Details_DamageTotal_DiagramLegend_Child_C"..cat.."_SwatchBg"):SetTexture(val[1][1],val[1][2],val[1][3],1)
 		_G("DPSMate_Details_DamageTotal_DiagramLegend_Child_C"..cat):Show()
 	end
@@ -449,11 +457,12 @@ function DPSMate.Modules.DetailsDamageTotal:LoadTable()
 		_G("DPSMate_Details_DamageTotal_PlayerList_Child_R"..i.."_CB").act = false
 	end
 	for cat, val in arr do
-		if DPSMateUser[val[1]][4] then
+		local uentry = DPSMateUser[val[1]]
+		if uentry and uentry[4] then
 			i=i+1
 		else
 			if (cat-i)>30 then break end
-			local r,g,b = DPSMate:GetClassColor(DPSMateUser[val[1]][2])
+			local r,g,b = DPSMate:GetClassColor(uentry and uentry[2])
 			_G("DPSMate_Details_DamageTotal_PlayerList_Child"):SetHeight((cat-i)*30)
 			_G("DPSMate_Details_DamageTotal_PlayerList_Child_R"..(cat-i).."_Name"):SetText(val[1])
 			_G("DPSMate_Details_DamageTotal_PlayerList_Child_R"..(cat-i).."_Name"):SetTextColor(r,g,b)
@@ -473,6 +482,10 @@ end
 
 function DPSMate.Modules.DetailsDamageTotal:ShowTooltip(user, obj)
 	local name = DPSMate:GetUserById(user)
+	if not DPSMateUser[name] then
+		return
+	end
+
 	local a,b,c = DPSMate.Modules.Damage:EvalTable(DPSMateUser[name], curKey)
 	local pet = ""
 	GameTooltip:SetOwner(obj, "TOPLEFT")
@@ -480,7 +493,11 @@ function DPSMate.Modules.DetailsDamageTotal:ShowTooltip(user, obj)
 	if not a or not b or not c then return end
 	for i=1, DPSMateSettings["subviewrows"] do
 		if not a[i] then break end
-		if c[i][2] then pet="(Pet)" else pet="" end
+		if c[i][2] then
+			pet="("..c[i][2]..")"
+		else
+			pet=""
+		end
 		GameTooltip:AddDoubleLine(i..". "..DPSMate:GetAbilityById(a[i])..pet,c[i][1].." ("..strformat("%.2f", 100*c[i][1]/b).."%)",1,1,1,1,1,1)
 	end
 	GameTooltip:Show()
