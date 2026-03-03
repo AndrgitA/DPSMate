@@ -649,14 +649,30 @@ DPSMate.DB.VARIABLES_LOADED = function()
 			DPSMATERESET = DPSMate.VERSION
 			DPSMate.Options:PopUpAccept(true, true)
 		end
-		
-		this.abilitylen = DPSMate:TableLength(DPSMateAbility)
-		this.userlen = DPSMate:TableLength(DPSMateUser)
-		if this.userlen==0 then
-			this.userlen = 1
+
+		local function rebuildTableIndex(t)
+			local result = 0;
+
+			if (type(t) == "table") then
+				for _, v in pairs(t) do
+					if (v and type(v) == "table" and v[1] > result) then
+						result = v[1];
+					end
+				end
+			end
+
+			return result;
 		end
-		if this.abilitylen == 0 then
-			this.abilitylen = 1
+		
+
+		this.userlen = rebuildTableIndex(DPSMateUser);
+		if (this.userlen == 0) then
+			this.userlen = 1;
+		end
+
+		this.abilitylen = rebuildTableIndex(DPSMateAbility);
+		if (this.abilitylen == 0) then
+			this.abilitylen = 1;
 		end
 
 		DPSMate.Sync:OnLoad()
@@ -689,7 +705,6 @@ DPSMate.DB.VARIABLES_LOADED = function()
 	--	DPSMate:SendMessage("")
 		this.loaded = true
 		DPSMate.Options.PLAYER_ENTERING_WORLD()
-		
 		
 	end
 end
@@ -1355,11 +1370,11 @@ function DPSMate.DB:DamageTaken(Duser, Dname, Dhit, Dcrit, Dmiss, Dparry, Ddodge
 			time = CBTCache[cat]
 			path["i"][time] = (path["i"][time] or 0) + Damount
 		else
-			path[9] = path[9] + Dmiss
-			path[10] = path[10] + Dparry
-			path[11] = path[11] + Ddodge
-			path[12] = path[12] + Dresist
-			path[20] = path[20] + Dblock
+			path[9] = path[9] + (Dmiss or 0)
+			path[10] = path[10] + (Dparry or 0)
+			path[11] = path[11] + (Ddodge or 0)
+			path[12] = path[12] + (Dresist or 0)
+			path[20] = path[20] + (Dblock or 0)
 		end
 	end
 	NeedUpdate = true
@@ -2281,7 +2296,7 @@ function DPSMate.DB:UpdatePlayerCBT(cbt)
 		if UnitAffectingCombat(type..i) or UnitAffectingCombat(type.."pet"..i) then
 			name = UnitName(type..i)
 			cbt1[name] = (cbt1 and cbt1[name] or 0) + cbt
-			cbt2[name] = (cbt1 and cbt2[name] or 0) + cbt
+			cbt2[name] = (cbt2 and cbt2[name] or 0) + cbt
 			notInCombat = false
 		end
 	end
@@ -2297,8 +2312,8 @@ function DPSMate.DB:OnUpdate()
 		LastUpdate = LastUpdate + arg1
 		if LastUpdate>=UpdateTime then
 			cbtpt = DPSCBT["effective"]
-			DPSCBT["total"] = (DPSCBT["total"] and DPSCBT["total"] or 0 )+ LastUpdate
-			DPSCBT["current"] = (DPSCBT["current"] and DPSCBT["current"] or 0 )+ LastUpdate
+			DPSCBT["total"] = (DPSCBT["total"] or 0 )+ LastUpdate
+			DPSCBT["current"] = (DPSCBT["current"] or 0 )+ LastUpdate
 			
 			CBTCache[1] = floor(DPSCBT["total"])
 			CBTCache[2] = floor(DPSCBT["current"])

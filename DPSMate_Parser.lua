@@ -144,6 +144,11 @@ DPSMate.Parser.procs = {
 	["Presence of Mind"] = true,
 	["Ice Block"] = true,
 	["Evocation"] = true,
+	["Arcane Rupture"] = true,
+	["Rift Feedback"] = true,
+	["Temporal Convergence"] = true,
+	["Icicle"] = true,
+	["Flash Freeze"] = true,
 	
 	-- Priest
 	["Power Infusion"] = true,
@@ -160,6 +165,15 @@ DPSMate.Parser.procs = {
 	["Metamorphosis Rune"] = true,
 	["Clearcasting"] = true,
 	["Nature's Grace"] = true,
+	["Arcane Eclipse"] = true,
+	["Nature Eclipse"] = true,
+	["Astral Boon"] = true,
+	["Natural Boon"] = true,
+	["Arcane Solstice"] = true,
+	["Natural Solstice"] = true,
+	["Owlkin Frenzy"] = true,
+	["Fungal Infection"] = true,
+	["Dizzying Spores"] = true,
 	
 	-- Paladin
 	["Battlegear of Eternal Justice"] = true,
@@ -228,6 +242,17 @@ DPSMate.Parser.procs = {
 	["Web Wrap"] = true,
 	["Mutating Injection"] = true,
 	["Terrifying Roar"] = true,
+
+	
+	--@region Andrgit Added
+	["Spell Blasting"] = true, -- Ring: Wrath of Cenarius
+	["Sulfuron Blaze"] = true, -- Ring: True Band of Sulfuras
+	["Highborne Insight"] = true, -- Back: Spellwoven Nobility Drape
+	["Elune's Courage"] = true, -- Trinket: The Scythe of Elune
+	["Elune's Wrath"] = true, -- Trinket: The Scythe of Elune
+	["Enlightened State"] = true, -- Trinket: Sphere of the Endless Gulch
+	["Wisdom of the Mak'aru"] = true, -- Trinket: Sphere of the Endless Gulch
+	--@endregion
 }
 
 DPSMate.Parser.BuffExceptions = {
@@ -268,6 +293,11 @@ DPSMate.Parser.DmgProcs = {
 	["Spell Vulnerability"] = true, -- To Test
 	["Lightning Strike"] = true, -- To Test
 	-- Deathbringer Skipped
+
+
+	--@region Andrgit Added
+	["Burning Hatred"] = true, -- Ornate Bloodstone Dagger
+	--@endregion
 }
 DPSMate.Parser.TargetParty = {}
 DPSMate.Parser.RCD = {

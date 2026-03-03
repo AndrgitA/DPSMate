@@ -1062,6 +1062,46 @@ local spellIcons = {
 	["Freeze"] = "temp",
 	["Shield Charge"] = "ability_warrior_charge",
 
+	
+	--@region Andrgit Added
+	["Burning Hatred"] = "spell_fire_lavaspawn",
+	-- ["Spell Blasting"] = "spell_lightning_lightningbolt01",
+	["Sulfuron Blaze"] = "spell_fire_fire",
+	["Highborne Insight"] = "spell_holy_magicalsentry",
+	["Ancient Accord"] = "spell_holy_dispelmagic", -- Sigil of Ancient Accord
+	["Elune Infusion"] = "spell_shadow_manaburn", -- Trinket: The Scythe of Elune
+	["Elune's Courage"] = "ability_druid_challangingroar", -- Trinket: The Scythe of Elune
+	["Elune's Wrath"] = "spell_shadow_manaburn", -- Trinket: The Scythe of Elune
+	["Decaying Flesh"] = "Spell_Shadow_LifeDrain", -- Chest: Embrace of the Wind Serpent
+	["Feast of Hakkar"] = "Spell_Shadow_BloodBoil", -- Chest: Embrace of the Wind Serpent
+	["Enlightened State"] = "spell_arcane_teleportironforge", -- Trinket: Sphere of the Endless Gulch
+	["Wisdom of the Mak'aru"] = "spell_arcane_blink", -- Trinket: Sphere of the Endless Gulch
+
+	-- Mage
+	["Arcane Rupture"] = "spell_arcane_blast",
+	["Rift Feedback"] = "spell_shadow_manaburn",
+	["Temporal Convergence"] = "spell_nature_stormreach",
+	["Arcane Surge"] = "inv_enchant_essencemysticallarge",
+	["Icicle"] = "spell_frost_frostblast",
+	["Icicles"] = "spell_frost_frostblast",
+	-- ["Flash Freeze"] = "spell_fire_frostresistancetotem",
+
+	-- Druid
+	["Arcane Eclipse"] = "Spell_Nature_WispSplode",
+	["Nature Eclipse"] = "Spell_Nature_AbolishMagic",
+	["Astral Boon"] = "Spell_Arcane_StarFire",
+	["Natural Boon"] = "Spell_Nature_AbolishMagic",
+	["Arcane Solstice"] = "Spell_Arcane_StarFire",
+	["Natural Solstice"] = "Spell_Nature_AbolishMagic",
+	["Owlkin Frenzy"] = "ability_druid_owlkinfrenzy",
+	["Fungal Infection"] = "spell_holy_harmundeadaura",
+	["Dizzying Spores"] = "spell_shadow_creepingplague",
+
+	-- Warlock
+	["Dark Harvest"] = "spell_shadow_soulleech",
+	--@endregion
+
+
 	-- Original Icons
 	["Abolish Disease"] = "Spell_Nature_NullifyDisease",
 	["Abolish Poison Effect"] = "Spell_Nature_NullifyPoison_02",

@@ -310,19 +310,21 @@ function DPSMate.Modules.DetailsDamage:Player_Update(comp)
 		d4 = PSelected2
 	end
 	local len = DPSMate:TableLength(d1)
-	local coeff = len-8
-	if not obj.oset or obj.oset<0 then
-		obj.oset = 0
-	end
-	if coeff>0 then
-		if (coeff-obj.oset)<0 then
-			obj.oset = coeff
+	if comp ~= "" and comp~=nil then
+		local coeff = len-8
+		if not obj.oset or obj.oset<0 then
+			obj.oset = 0
 		end
-		FauxScrollFrame_SetOffset(obj, obj.oset)
+		if coeff>0 then
+			if (coeff-obj.oset)<0 then
+				obj.oset = coeff
+			end
+			FauxScrollFrame_SetOffset(obj, obj.oset)
+		end
 	end
 	FauxScrollFrame_Update(obj,len,8,24)
 	for line=1,8 do
-		lineplusoffset = line + FauxScrollFrame_GetOffset(obj)
+		lineplusoffset = line + (FauxScrollFrame_GetOffset(obj) or 0)
 		if d1[lineplusoffset] ~= nil then
 			local user = DPSMate:GetUserById(d1[lineplusoffset])
 			_G(path.."_ScrollButton"..line.."_Name"):SetText(user)
@@ -347,6 +349,9 @@ function DPSMate.Modules.DetailsDamage:Player_Update(comp)
 end
 
 function DPSMate.Modules.DetailsDamage:PlayerSpells_Update(i, comp)
+	if not i then
+		return
+	end
 	if not comp then comp = DPSMate_Details.LastScroll or "" end
 	local line, lineplusoffset
 	local path = "DPSMate_Details"..comp.."_playerSpells"
@@ -358,20 +363,22 @@ function DPSMate.Modules.DetailsDamage:PlayerSpells_Update(i, comp)
 		d4 = PSelected2
 	end
 	local len = DPSMate:TableLength(d2[i][2])
-	local coeff = len-8
-	if not obj.oset or obj.oset<0 then
-		obj.oset = 0
-	end
-	if coeff>0 then
-		if (coeff-obj.oset)<0 then
-			obj.oset = coeff
+	if comp ~= "" and comp~=nil then
+		local coeff = len-8
+		if not obj.oset or obj.oset<0 then
+			obj.oset = 0
 		end
-		FauxScrollFrame_SetOffset(obj, obj.oset)
+		if coeff>0 then
+			if (coeff-obj.oset)<0 then
+				obj.oset = coeff
+			end
+			FauxScrollFrame_SetOffset(obj, obj.oset)
+		end
 	end
 
 	FauxScrollFrame_Update(obj,len,10,24)
 	for line=1,10 do
-		lineplusoffset = line + FauxScrollFrame_GetOffset(obj)
+		lineplusoffset = line + (FauxScrollFrame_GetOffset(obj) or 0)
 		if d2[obj.id][2][lineplusoffset] ~= nil then
 			local ability = DPSMate:GetAbilityById(d2[obj.id][2][lineplusoffset])
 			_G(path.."_ScrollButton"..line.."_Name"):SetText(ability)
@@ -423,6 +430,9 @@ function DPSMate.Modules.DetailsDamage:PlayerSpells_Update(i, comp)
 end
 
 function DPSMate.Modules.DetailsDamage:SelectDetailsButton(i, comp, cname)
+	if not i then
+		return
+	end
 	if not comp then comp = DPSMate_Details.LastScroll or "" end
 	local pathh = ""
 	local path,obj,lineplusoffset
@@ -448,6 +458,10 @@ function DPSMate.Modules.DetailsDamage:SelectDetailsButton(i, comp, cname)
 		local ability = tonumber(uArr[lineplusoffset])
 		if (db[DPSMateUser[cname or DetailsUser][1]][ability]) then user=DPSMateUser[cname or DetailsUser][1]; pet=0; else if DPSMateUser[cname or DetailsUser][5] and DPSMateUser[cname or DetailsUser][5]~=(cname or DetailsUser) then user=DPSMateUser[DPSMateUser[cname or DetailsUser][5]][1]; pet=5; else user=DPSMateUser[cname or DetailsUser][1]; pet=0; end end
 		path = db[user][tonumber(uArr[lineplusoffset])]
+	end
+	
+	if not path then
+		return
 	end
 	if comp ~= "" and comp~=nil then
 		DetailsSelectedComp = lineplusoffset

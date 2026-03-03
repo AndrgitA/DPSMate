@@ -355,6 +355,9 @@
 								DPSMate_Details.LastScroll = ""
 								FauxScrollFrame_OnVerticalScroll(24, DPSMate.Modules.DetailsDamage.ScrollFrame_Update) 
 							</OnVerticalScroll>
+							<OnShow>
+								DPSMate.Modules.DetailsDamage.ScrollFrame_Update()
+							</OnShow>
 					   </Scripts>
 					</ScrollFrame>
 					<Button name="$parent_ScrollButton1" inherits="DPSMate_Details_ScrollButton" id="1">
@@ -803,14 +806,13 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnMouseWheel>
+							<OnVerticalScroll>
 								DPSMate_Details.LastScroll = ""
-								if not this.oset then
-									this.oset = 0
-								end
-								this.oset = this.oset - arg1
 								FauxScrollFrame_OnVerticalScroll(24, DPSMate.Modules.DetailsDamage.Player_Update) 
-							</OnMouseWheel>
+							</OnVerticalScroll>
+							<OnShow>
+								DPSMate.Modules.DetailsDamage.Player_Update()
+							</OnShow>
 					   </Scripts>
 					</ScrollFrame>
 					<Button name="$parent_ScrollButton1" inherits="DPSMate_Details_ScrollButton" id="1">
@@ -897,14 +899,13 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnMouseWheel>
+							<OnVerticalScroll>
 								DPSMate_Details.LastScroll = ""
-								if not this.oset then
-									this.oset = 0
-								end
-								this.oset = this.oset - arg1
 								FauxScrollFrame_OnVerticalScroll(24, DPSMate.Modules.DetailsDamage.PlayerSpells_Update) 
-							</OnMouseWheel>
+							</OnVerticalScroll>
+							<OnShow>
+								DPSMate.Modules.DetailsDamage.PlayerSpells_Update()
+							</OnShow>
 					   </Scripts>
 					</ScrollFrame>
 					<Button name="$parent_ScrollButton1" inherits="DPSMate_Details_ScrollButton" id="1">

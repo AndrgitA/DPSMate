@@ -1437,7 +1437,7 @@
 	----------------------------------------------------------------------------------
 	
 	<Frame name="DPSMate_ConfigMenu" movable="true" hidden="true" frameStrata="HIGH">
-		<Size x="450" y="300" />
+		<Size x="450" y="370" />
 		<Anchors>
 			<Anchor point="CENTER" />
 		</Anchors>
@@ -1494,7 +1494,7 @@
 				<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
 			</Button>
 			<Frame name="$parent_Menu" inherits="DPSMate_Template_Box">
-				<Size x="128" y="250" />
+				<Size x="128" y="320" />
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_Title" relativePoint="BOTTOMLEFT" />
 				</Anchors>
@@ -1644,7 +1644,7 @@
 			</Frame>
 			
 			<Frame name="$parent_Tab_Window" inherits="DPSMate_Template_Box">
-				<Size x="301" y="250" />
+				<Size x="301" y="320" />
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="$parent_Menu" relativePoint="RIGHT" />
 				</Anchors>
@@ -3016,11 +3016,11 @@
 									DPSMate.Options:InitializeSegments()
 									DPSMate:SetStatusBarValue()
 								end
-								this:SetMinMaxValues(1,20)
+								this:SetMinMaxValues(1,200)
 								this:SetValueStep(1)
 								getglobal(this:GetName().."Text"):SetText(DPSMate.L["segments"])
 								getglobal(this:GetName().."Low"):SetText("1")
-								getglobal(this:GetName().."High"):SetText("20")
+								getglobal(this:GetName().."High"):SetText("200")
 							</OnLoad>
 						</Scripts>
 					</Slider>
@@ -5716,11 +5716,11 @@
 								this.func = function() 
 									DPSMateSettings["subviewrows"] = this:GetValue()
 								end
-								this:SetMinMaxValues(1,10)
+								this:SetMinMaxValues(1,20)
 								this:SetValueStep(1)
 								getglobal(this:GetName().."Text"):SetText(DPSMate.L["subviewrows"])
 								getglobal(this:GetName().."Low"):SetText("1")
-								getglobal(this:GetName().."High"):SetText("10")
+								getglobal(this:GetName().."High"):SetText("20")
 							</OnLoad>
 						</Scripts>
 					</Slider>

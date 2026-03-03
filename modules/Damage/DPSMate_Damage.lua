@@ -37,7 +37,7 @@ function DPSMate.Modules.Damage:GetSortedTable(arr, k)
 	local b, a, total, CV, i, name = {}, {}, 0
 	for cat, val in pairs(arr) do
 		name = DPSMate:GetUserById(cat)
-		if (not DPSMateUser[name][4] or (DPSMateUser[name][4] and not DPSMateSettings["mergepets"])) then
+		if (name and DPSMateUser[name] and (not DPSMateUser[name][4] or (DPSMateUser[name][4] and not DPSMateSettings["mergepets"]))) then
 			if DPSMate:ApplyFilter(k, name) then
 				CV = val["i"]
 				if DPSMateSettings["mergepets"] and DPSMateUser[DPSMateUser[name][5]] and arr[DPSMateUser[DPSMateUser[name][5]][1]] and name~=DPSMateUser[name][5] then

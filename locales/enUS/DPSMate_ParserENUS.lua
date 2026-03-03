@@ -589,7 +589,7 @@ function DPSMate.Parser:SelfSpellDMG(msg)
 		i, j = strfind(msg, ".", k, true)
 		nextword = strsub(msg, k, i-1);
 		k = j+1
-		
+
 		local amount, school = GetDamage(nextword)
 		local prefixAmount, prefixCase, k = GetPrefix(msg, k)
 		
@@ -604,7 +604,10 @@ function DPSMate.Parser:SelfSpellDMG(msg)
 		if Kicks[ability] then DB:AssignPotentialKick(Player, ability, target, GetTime()) end
 		if DmgProcs[ability] then DB:BuildBuffs(Player, Player, ability, true) end
 		DB:EnemyDamage(true, nil, Player, ability, hit, crit, 0, 0, 0, 0, amount, target, block, 0)
-		DB:DamageDone(Player, ability, hit, crit, 0, 0, 0, 0, amount, 0, block)
+		-- if (not (o and ability == "Burning Hatred" and target == "you")) then
+		if (not (o and target == "you")) then
+			DB:DamageDone(Player, ability, hit, crit, 0, 0, 0, 0, amount, 0, block);
+		end
 		if self.TargetParty[target] then DB:BuildFail(1, target, Player, ability, amount);DB:DeathHistory(target, Player, ability, amount, hit, crit, 0, 0) end
 		return
 	elseif choice == 3 then
@@ -863,7 +866,10 @@ function DPSMate.Parser:FriendlyPlayerDamage(msg)
 					if Kicks[ability] then DB:AssignPotentialKick(source, ability, target, GetTime()) end
 					if DmgProcs[ability] then DB:BuildBuffs(source, source, ability, true) end
 					DB:EnemyDamage(true, nil, source, ability, hit, crit, 0, 0, 0, 0, amount, target, 0, 0)
-					DB:DamageDone(source, ability, hit, crit, 0, 0, 0, 0, amount, 0, 0)
+					-- if (not (ability == "Burning Hatred" and target == source)) then
+					if (target ~= source) then
+						DB:DamageDone(source, ability, hit, crit, 0, 0, 0, 0, amount, 0, 0)
+					end
 					
 					if self.TargetParty[target] then -- Fixes the issue for pvp death logging
 						if self.TargetParty[source] then
