@@ -193,6 +193,9 @@ function DPSMate.Modules.DetailsEDT:ScrollFrame_Update(comp)
 end
 
 function DPSMate.Modules.DetailsEDT:SelectCreatureButton(i, comp)
+	if not i then
+		return
+	end
 	if not comp then comp = DPSMate_Details_EDT.LastScroll or "" end
 	local line, lineplusoffset
 	local path = "DPSMate_Details_"..comp.."EDT_Log"

@@ -78,7 +78,8 @@ DPSMate.Modules.DetailsProcs.specialSnowflakes = {
 	},
 	["Quick Shots"] = {
 		["Auto Shot"] = true,
-	}
+	},
+	["Nature's Grace"] = {},
 }
 DPSMate.Modules.DetailsProcs.specialSnowflakesDmgTaken = {
 	[1] = { -- All
