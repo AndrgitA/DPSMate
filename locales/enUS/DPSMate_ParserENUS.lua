@@ -823,10 +823,10 @@ function DPSMate.Parser:FriendlyPlayerDamage(msg)
 
 					i,j = strfind(msg, " 's ", 1, true);
 					local src = strsub(msg, p+1, i-1)
-					i,j = strfind(msg, ".", j+1, true)
+					i = strfind(msg, ".", j+1, true)
 					local ab = strsub(msg, j+1, i-1)
-					DB:EnemyDamage(true, nil, src, ability, 0, 0, 0, 0, 0, 1, 0, tar, 0, 0)
-					DB:DamageDone(src, ability, 0, 0, 0, 0, 0, 1, 0, 0, 0)
+					DB:EnemyDamage(true, nil, src, ab, 0, 0, 0, 0, 0, 1, 0, tar, 0, 0)
+					DB:DamageDone(src, ab, 0, 0, 0, 0, 0, 1, 0, 0, 0)
 					return
 				end
 
