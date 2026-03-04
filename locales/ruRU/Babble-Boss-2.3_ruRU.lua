@@ -12,9 +12,8 @@ Rewritten a little and added some "bosses" by Shino
 21/08/2020 updated to lastest BB 20006 by Shikulja
 ]]
 
-if (GetLocale()=="ruRU") then
-
-local bosses = {
+if (GetLocale() == "ruRU") then
+	local bosses = {
 		["Лавинион"] = true,
 		["Ветробой"] = true,
 		["Барон Огнерр"] = true,
@@ -207,7 +206,7 @@ local bosses = {
 		["Зеврим Терновое Копыто"] = true,
 		["Золо"] = true,
 		["Зул'Лор"] = true,
-		
+
 		-- From Mendeleev
 		["Чо'Раш Наблюдатель"] = true,
 		["Лорд Хел'нурат"] = true,
@@ -268,7 +267,7 @@ local bosses = {
 		["Темный жрец Шезз'зиз"] = true,
 		["Газ'рилла"] = true,
 		["Вождь Укорз Песчаная Плешь"] = true,
-		["Руузлу"] = true,	
+		["Руузлу"] = true,
 		["Изалиен"] = true,
 		["Реваншион"] = true,
 		["Лорд Роккор"] = true,
@@ -289,7 +288,7 @@ local bosses = {
 		["Аррок Смертный Вопль"] = true,
 		["Интендант Зигрис"] = true,
 		["Гизрул Поработитель"] = true,
-		["Гок Крепкобив"] = true,	
+		["Гок Крепкобив"] = true,
 		["Джед Руновед"] = true,
 		["Лорд Вальтхалак"] = true,
 		["Грязнюк"] = true,
@@ -353,12 +352,12 @@ local bosses = {
 		["Старый крапчатый вепрь"] = true,
 		["Каменная горгулья"] = true,
 		["Мастер-ремесленник Омарион"] = true,
-}
+	}
 
-BabbleBoss = {}
-function BabbleBoss:Contains(name)
-	return bosses[name]
-end
+	BabbleBoss = {}
+	function BabbleBoss:Contains(name)
+		return bosses[name]
+	end
 
-DPSMate.BabbleBoss = BabbleBoss
+	DPSMate.BabbleBoss = BabbleBoss
 end

@@ -18,11 +18,11 @@ if (GetLocale() == "ruRU") then
 
 	-- Evaluation frame
 	DPSMate.L["procs"] = "Срабатывания"
-	DPSMate.L["procstooltip"] = "Выберете для отображения срабатываний в графике." 
+	DPSMate.L["procstooltip"] = "Выберете для отображения срабатываний в графике."
 	DPSMate.L["absorbsby"] = "Поглощения - "
 	DPSMate.L["absorbstakenby"] = "Получ. поглощения - "
 	DPSMate.L["aurasof"] = "Ауры "
-	DPSMate.L["BUDEBU"] = {"Баффы", "Дебаффы"}
+	DPSMate.L["BUDEBU"] = { "Баффы", "Дебаффы" }
 	DPSMate.L["castsof"] = "Способности "
 	DPSMate.L["bname"] = "Имя"
 	DPSMate.L["count"] = "Кол-во"
@@ -347,13 +347,13 @@ if (GetLocale() == "ruRU") then
 	DPSMate.L["slashshow"] = "|c3ffddd80- show {name}:|r Показать окна с именем {name}."
 	DPSMate.L["slashhide"] = "|c3ffddd80- hide {name}:|r Скрыть окна с именем {name}."
 	DPSMate.L["slashconfig"] = "|c3ffddd80- config:|r Открыть меню настроек."
-	DPSMate.L["bccdo"] = function(who, what) return who.." получает "..what end
-	DPSMate.L["bccdt"] = function(who, what) return what..who.." перестает действовать" end
-	DPSMate.L["bcress"] = function(who, what) return what.." был возрожден "..who end
-	DPSMate.L["bckb"] = function(who, what, with, value) return who.." был убит "..what..with.." ("..value.." ед. урона)" end
-	DPSMate.L["bcfailo"] = function(what, who, value, with) return "Неудача: "..what.." дружественный огонь "..who.." "..value.." ед. урона "..with end
-	DPSMate.L["bcfailt"] = function(who, with) return "Неудача: "..who.." находится под воздействием эффекта "..with end
-	DPSMate.L["bcfailth"] = function(who, value, with, what) return "Неудача: "..who.." получил "..value.." ед. урона от "..with.." от "..what end
+	DPSMate.L["bccdo"] = function(who, what) return who .. " получает " .. what end
+	DPSMate.L["bccdt"] = function(who, what) return what .. who .. " перестает действовать" end
+	DPSMate.L["bcress"] = function(who, what) return what .. " был возрожден " .. who end
+	DPSMate.L["bckb"] = function(who, what, with, value) return who .. " был убит " .. what .. with .. " (" .. value .. " ед. урона)" end
+	DPSMate.L["bcfailo"] = function(what, who, value, with) return "Неудача: " .. what .. " дружественный огонь " .. who .. " " .. value .. " ед. урона " .. with end
+	DPSMate.L["bcfailt"] = function(who, with) return "Неудача: " .. who .. " находится под воздействием эффекта " .. with end
+	DPSMate.L["bcfailth"] = function(who, value, with, what) return "Неудача: " .. who .. " получил " .. value .. " ед. урона от " .. with .. " от " .. what end
 	DPSMate.L["syncreseterror"] = "DPSMate не может быть сброшен во время режима синхронизации в рейдах."
 	DPSMate.L["resetnotofficererror"] = "Вы не лидер группы или помощник!"
 	DPSMate.L["findusererror"] = "Не удалось найти этого пользователя!"
@@ -367,7 +367,7 @@ if (GetLocale() == "ruRU") then
 	DPSMate.L["topleft"] = "Слева сверху"
 	DPSMate.L["left"] = "Слева"
 	DPSMate.L["top"] = "Сверху"
-	DPSMate.L["gchannel"] = {[1]="Raid",[2]="Party",[3]="Say",[4]="Officer",[5]="Guild"}
+	DPSMate.L["gchannel"] = { [1] = "Raid", [2] = "Party", [3] = "Say", [4] = "Officer", [5] = "Guild" }
 	DPSMate.L["nodetailserror"] = "Нет элементов для отчета."
 	DPSMate.L["reportof"] = "Отчет для"
 	DPSMate.L["opendetails"] = "Открыть детали"
@@ -424,7 +424,7 @@ if (GetLocale() == "ruRU") then
 	DPSMate.L["poisoncleansingtotem"] = "Тотем противоядия"
 	DPSMate.L["threatdoneby"] = "Созданная угроза от "
 	DPSMate.L["periodic"] = "(периодический)"
-	DPSMate.L["reportchannel"] = {[1]="Шепот",[2]="Raid",[3]="Party",[4]="Say",[5]="Officer",[6]="Guild"}
+	DPSMate.L["reportchannel"] = { [1] = "Шепот", [2] = "Raid", [3] = "Party", [4] = "Say", [5] = "Officer", [6] = "Guild" }
 	DPSMate.L["raid"] = "Рейд"
 	DPSMate.L["activity"] = "Активность: "
 	DPSMate.L["of"] = "из"
@@ -524,386 +524,388 @@ if (GetLocale() == "ruRU") then
 	DPSMate.L["ttabsorbed"] = " Поглощено"
 	DPSMate.L["ttabsorb"] = " Поглощение"
 	DPSMate.L["ttthreat"] = " Угроза"
-	
-	
-	-- Updating preloaded configs
-	local _G = getglobal
-	local prestr = "DPSMate_ConfigMenu_"
-	-- Menu
-	local substr = "Menu_"
-	_G(prestr..substr.."Button1"):SetText(DPSMate.L["window"])
-	_G(prestr..substr.."Button2"):SetText(DPSMate.L["dataresets"])
-	_G(prestr..substr.."Button3"):SetText(DPSMate.L["generaloptions"])
-	_G(prestr..substr.."Button4"):SetText(DPSMate.L["columns"])
-	_G(prestr..substr.."Button5"):SetText(DPSMate.L["tooltips"])
-	_G(prestr..substr.."Button6"):SetText(DPSMate.L["modes"])
-	_G(prestr..substr.."Button7"):SetText(DPSMate.L["raidleader"])
-	_G(prestr..substr.."Button8"):SetText(DPSMate.L["broadcasting"])
-	_G(prestr..substr.."Button9"):SetText(DPSMate.L["about"])
-	
-	-- Window
-	substr = "Tab_Window_"
-	_G(prestr..substr.."EditboxText"):SetText(DPSMate.L["createwindow"])
-	_G(prestr..substr.."Editbox").aide = DPSMate.L["createwindowtooltip"]
-	_G(prestr..substr.."SubmitText"):SetText(DPSMate.L["submit"])
-	_G(prestr..substr.."Submit").aide = DPSMate.L["submitTooltip"]
-	_G(prestr..substr.."Remove_Text"):SetText(DPSMate.L["availwindows"])
-	_G(prestr..substr.."Remove").aide = DPSMate.L["availwindowsTooltip"]
-	_G(prestr..substr.."ButtonRemoveText"):SetText(DPSMate.L["remove"])
-	_G(prestr..substr.."ButtonRemove").aide = DPSMate.L["removeTooltip"]
-	_G(prestr..substr.."ConfigFrom_Text"):SetText(DPSMate.L["configfrom"])
-	_G(prestr..substr.."ConfigFrom").aide = DPSMate.L["configfromTooltip"]
-	_G(prestr..substr.."ConfigTo_Text"):SetText(DPSMate.L["configto"])
-	_G(prestr..substr.."ConfigTo").aide = DPSMate.L["configtoTooltip"]
-	_G(prestr..substr.."ButtonCopyText"):SetText(DPSMate.L["copy"])
-	_G(prestr..substr.."ButtonCopy").aide = DPSMate.L["copyTooltip"]
-	_G(prestr..substr.."Lock_Title"):SetText(DPSMate.L["lock"])
-	_G(prestr..substr.."Lock").aide = DPSMate.L["locktooltip"]
-	_G(prestr..substr.."Testmode_Title"):SetText(DPSMate.L["testmode"])
-	_G(prestr..substr.."Testmode").aide = DPSMate.L["testmodetooltip"]
-	
-	-- Bars
-	substr = "Tab_Bars_"
-	_G(prestr..substr.."BarFont_Text"):SetText(DPSMate.L["barfont"])
-	_G(prestr..substr.."BarFont").aide = DPSMate.L["barfontTooltip"]
-	_G(prestr..substr.."BarFontSizeText"):SetText(DPSMate.L["barfontsize"])
-	_G(prestr..substr.."BarFontSize").aide = DPSMate.L["barfontsizeTooltip"]
-	_G(prestr..substr.."BarFontFlag_Text"):SetText(DPSMate.L["barfontflags"])
-	_G(prestr..substr.."BarFontFlag").aide = DPSMate.L["barfontflagsTooltip"]
-	_G(prestr..substr.."BarTexture_Text"):SetText(DPSMate.L["bartexture"])
-	_G(prestr..substr.."BarTexture").aide = DPSMate.L["bartextureTooltip"]
-	_G(prestr..substr.."BarSpacingText"):SetText(DPSMate.L["barspacing"])
-	_G(prestr..substr.."BarSpacing").aide = DPSMate.L["barspacingTooltip"]
-	_G(prestr..substr.."BarHeightText"):SetText(DPSMate.L["barheight"])
-	_G(prestr..substr.."BarHeight").aide = DPSMate.L["barheightTooltip"]
-	_G(prestr..substr.."FontColor_Font"):SetText(DPSMate.L["fontcolor"])
-	_G(prestr..substr.."FontColor").aide = DPSMate.L["fontcolorTooltip"]
-	_G(prestr..substr.."BackgroundBarColor_Font"):SetText(DPSMate.L["bgbarcolor"])
-	_G(prestr..substr.."BackgroundBarColor").aide = DPSMate.L["bgbarcolorTooltip"]
-	_G(prestr..substr.."ClassIcons_Title"):SetText(DPSMate.L["classicons"])
-	_G(prestr..substr.."ClassIcons").aide = DPSMate.L["classiconstooltip"]
-	_G(prestr..substr.."Ranks_Title"):SetText(DPSMate.L["ranks"])
-	_G(prestr..substr.."Ranks").aide = DPSMate.L["rankstooltip"]
-	_G(prestr..substr.."DisableBG_Title"):SetText(DPSMate.L["disablebarbg"])
-	_G(prestr..substr.."DisableBG").aide = DPSMate.L["disablebarbgtooltip"]
-	_G(prestr..substr.."TotalAlphaText"):SetText(DPSMate.L["totalbaropacity"])
-	_G(prestr..substr.."TotalAlpha").aide = DPSMate.L["totalbaropacitytooltip"]
-	
-	-- Titlebar
-	substr = "Tab_TitleBar_"
-	_G(prestr..substr.."Enable_Title"):SetText(DPSMate.L["enable"])
-	_G(prestr..substr.."Enable").aide = DPSMate.L["enabletitlebartooltip"]
-	_G(prestr..substr.."BarFont_Text"):SetText(DPSMate.L["barfont"])
-	_G(prestr..substr.."BarFont").aide = DPSMate.L["barfontTooltip"]
-	_G(prestr..substr.."BarFontSizeText"):SetText(DPSMate.L["barfontsize"])
-	_G(prestr..substr.."BarFontSize").aide = DPSMate.L["barfontsizeTooltip"]
-	_G(prestr..substr.."BarFontFlag_Text"):SetText(DPSMate.L["barfontflags"])
-	_G(prestr..substr.."BarFontFlag").aide = DPSMate.L["barfontflagsTooltip"]
-	_G(prestr..substr.."BarTexture_Text"):SetText(DPSMate.L["bartexture"])
-	_G(prestr..substr.."BarTexture").aide = DPSMate.L["bartextureTooltip"]
-	_G(prestr..substr.."BarHeightText"):SetText(DPSMate.L["barheight"])
-	_G(prestr..substr.."BarHeight").aide = DPSMate.L["barheightTooltip"]
-	_G(prestr..substr.."BGOpacityText"):SetText(DPSMate.L["bgOpacity"])
-	_G(prestr..substr.."BGOpacity").aide = DPSMate.L["bgOpacityTooltip"]
-	_G(prestr..substr.."BGColor_Font"):SetText(DPSMate.L["bgcolor"])
-	_G(prestr..substr.."BGColor").aide = DPSMate.L["bgcolorTooltip"]
-	_G(prestr..substr.."FontColor_Font"):SetText(DPSMate.L["fontcolor"])
-	_G(prestr..substr.."FontColor").aide = DPSMate.L["fontcolorTooltip"]
-	_G(prestr..substr.."Box1_Report_Title"):SetText(DPSMate.L["report"])
-	_G(prestr..substr.."Box1_Report").aide = DPSMate.L["buttonshowtooltip"]
-	_G(prestr..substr.."Box1_Mode_Title"):SetText(DPSMate.L["mode"])
-	_G(prestr..substr.."Box1_Mode").aide = DPSMate.L["buttonshowtooltip"]
-	_G(prestr..substr.."Box1_Reset_Title"):SetText(DPSMate.L["reset"])
-	_G(prestr..substr.."Box1_Reset").aide = DPSMate.L["buttonshowtooltip"]
-	_G(prestr..substr.."Box1_Config_Title"):SetText(DPSMate.L["config"])
-	_G(prestr..substr.."Box1_Config").aide = DPSMate.L["buttonshowtooltip"]
-	_G(prestr..substr.."Box1_Sync_Title"):SetText(DPSMate.L["sync"])
-	_G(prestr..substr.."Box1_Sync").aide = DPSMate.L["buttonshowtooltip"]
-	_G(prestr..substr.."Box1_Enable_Title"):SetText(DPSMate.L["enabledisable"])
-	_G(prestr..substr.."Box1_Enable").aide = DPSMate.L["buttonshowtooltip"]
-	_G(prestr..substr.."Box1_Filter_Title"):SetText(DPSMate.L["filter"])
-	_G(prestr..substr.."Box1_Filter").aide = DPSMate.L["buttonshowtooltip"]
-	_G(prestr..substr.."Box1_CBTDisplay_Title"):SetText(DPSMate.L["cbtdisplay"])
-	_G(prestr..substr.."Box1_CBTDisplay").aide = DPSMate.L["buttonshowtooltip"]
-	
-	-- Tab content
-	substr = "Tab_Content_"
-	_G(prestr..substr.."BGDropDown_Text"):SetText(DPSMate.L["bgtex"])
-	_G(prestr..substr.."BGDropDown").aide = DPSMate.L["bgtexTooltip"]
-	_G(prestr..substr.."ScaleText"):SetText(DPSMate.L["scale"])
-	_G(prestr..substr.."Scale").aide = DPSMate.L["scaleTooltip"]
-	_G(prestr..substr.."OpacityText"):SetText(DPSMate.L["opacity"])
-	_G(prestr..substr.."Opacity").aide = DPSMate.L["opacityTooltip"]
-	_G(prestr..substr.."BGOpacityText"):SetText(DPSMate.L["bgOpacity"])
-	_G(prestr..substr.."BGOpacity").aide = DPSMate.L["bgOpacityTooltip"]
-	_G(prestr..substr.."BorderOpacityText"):SetText(DPSMate.L["borderOpacity"])
-	_G(prestr..substr.."BorderOpacity").aide = DPSMate.L["borderOpacityTooltip"]
-	_G(prestr..substr.."BGColor_Font"):SetText(DPSMate.L["bgcolor"])
-	_G(prestr..substr.."BGColor").aide = DPSMate.L["bgcolorTooltip"]
-	_G(prestr..substr.."NumberFormat_Text"):SetText(DPSMate.L["numberformat"])
-	_G(prestr..substr.."NumberFormat").aide = DPSMate.L["numberformatTooltip"]
-	_G(prestr..substr.."BorderTexture_Text"):SetText(DPSMate.L["bordertexture"])
-	_G(prestr..substr.."BorderTexture").aide = DPSMate.L["bordertextureTooltip"]
-	_G(prestr..substr.."BorderStrata_Text"):SetText(DPSMate.L["borderstrata"])
-	_G(prestr..substr.."BorderStrata").aide = DPSMate.L["borderstrataTooltip"]
-	_G(prestr..substr.."BorderColor_Font"):SetText(DPSMate.L["bordercolor"])
-	_G(prestr..substr.."BorderColor").aide = DPSMate.L["bordercolorTooltip"]
-	
-	-- Tab Dataresets
-	substr = "Tab_DataResets_"
-	_G(prestr..substr.."EnteringWorld_Text"):SetText(DPSMate.L["enterworldinstance"])
-	_G(prestr..substr.."EnteringWorld").aide = DPSMate.L["enterworldinstanceTooltip"]
-	_G(prestr..substr.."JoinParty_Text"):SetText(DPSMate.L["joinparty"])
-	_G(prestr..substr.."JoinParty").aide = DPSMate.L["joinpartyTooltip"]
-	_G(prestr..substr.."PartyMemberChanged_Text"):SetText(DPSMate.L["partymemberchanged"])
-	_G(prestr..substr.."PartyMemberChanged").aide = DPSMate.L["partymemberchangedTooltip"]
-	_G(prestr..substr.."LeaveParty_Text"):SetText(DPSMate.L["leavingparty"])
-	_G(prestr..substr.."LeaveParty").aide = DPSMate.L["leavingpartyTooltip"]
-	_G(prestr..substr.."Sync_Text"):SetText(DPSMate.L["syncrequest"])
-	_G(prestr..substr.."Sync").aide = DPSMate.L["syncrequesttooltip"]
-	_G(prestr..substr.."Logout_Text"):SetText(DPSMate.L["dataresetslogout"])
-	_G(prestr..substr.."Logout").aide = DPSMate.L["dataresetslogouttooltip"]
-	
-	-- Tab general options
-	substr = "Tab_GeneralOptions_"
-	_G(prestr..substr.."Minimap_Title"):SetText(DPSMate.L["minimap"])
-	_G(prestr..substr.."Minimap").aide = DPSMate.L["minimaptooltip"]
-	_G(prestr..substr.."Total_Title"):SetText(DPSMate.L["showtotal"])
-	_G(prestr..substr.."Total").aide = DPSMate.L["showtotaltooltip"]
-	_G(prestr..substr.."Solo_Title"):SetText(DPSMate.L["solo"])
-	_G(prestr..substr.."Solo").aide = DPSMate.L["solotooltip"]
-	_G(prestr..substr.."Combat_Title"):SetText(DPSMate.L["combat"])
-	_G(prestr..substr.."Combat").aide = DPSMate.L["combattooltip"]
-	_G(prestr..substr.."Login_Title"):SetText(DPSMate.L["loginhide"])
-	_G(prestr..substr.."Login").aide = DPSMate.L["loginhidetooltip"]
-	_G(prestr..substr.."BossFights_Title"):SetText(DPSMate.L["bossfights"])
-	_G(prestr..substr.."BossFights").aide = DPSMate.L["bossfightstooltip"]
-	_G(prestr..substr.."PVP_Title"):SetText(DPSMate.L["pvp"])
-	_G(prestr..substr.."PVP").aide = DPSMate.L["pvptooltip"]
-	_G(prestr..substr.."Disable_Title"):SetText(DPSMate.L["disable"])
-	_G(prestr..substr.."Disable").aide = DPSMate.L["disabletooltip"]
-	_G(prestr..substr.."MergePets_Title"):SetText(DPSMate.L["mergepets"])
-	_G(prestr..substr.."MergePets").aide = DPSMate.L["mergepetstooltip"]
-	_G(prestr..substr.."SegmentsText"):SetText(DPSMate.L["segments"])
-	_G(prestr..substr.."Segments").aide = DPSMate.L["segmentsTooltip"]
-	_G(prestr..substr.."TargetScaleText"):SetText(DPSMate.L["targetscale"])
-	_G(prestr..substr.."TargetScale").aide = DPSMate.L["targetscaleTooltip"]
-	
-	-- Tab Columns
-	substr = "Tab_Columns_Child_"
-	_G(prestr..substr.."DPS_Title"):SetText(DPSMate.L["dps"])
-	_G(prestr..substr.."Damage_Title"):SetText(DPSMate.L["damage"])
-	_G(prestr..substr.."DamageTaken_Title"):SetText(DPSMate.L["damagetaken"])
-	_G(prestr..substr.."DTPS_Title"):SetText(DPSMate.L["dtps"])
-	_G(prestr..substr.."EDD_Title"):SetText(DPSMate.L["enemydamagedone"])
-	_G(prestr..substr.."EDT_Title"):SetText(DPSMate.L["enemydamagetaken"])
-	_G(prestr..substr.."Healing_Title"):SetText(DPSMate.L["healing"])
-	_G(prestr..substr.."HealingTaken_Title"):SetText(DPSMate.L["healingtaken"])
-	_G(prestr..substr.."HPS_Title"):SetText(DPSMate.L["hps"])
-	_G(prestr..substr.."Overhealing_Title"):SetText(DPSMate.L["overhealing"])
-	_G(prestr..substr.."EffectiveHealing_Title"):SetText(DPSMate.L["effectivehealing"])
-	_G(prestr..substr.."EffectiveHealingTaken_Title"):SetText(DPSMate.L["effectivehealingtaken"])
-	_G(prestr..substr.."EffectiveHPS_Title"):SetText(DPSMate.L["effectivehps"])
-	_G(prestr..substr.."Absorbs_Title"):SetText(DPSMate.L["absorbs"])
-	_G(prestr..substr.."AbsorbsTaken_Title"):SetText(DPSMate.L["absorbstaken"])
-	_G(prestr..substr.."HAB_Title"):SetText(DPSMate.L["healingandabsorbs"])
-	_G(prestr..substr.."Deaths_Title"):SetText(DPSMate.L["deaths"])
-	_G(prestr..substr.."Interrupts_Title"):SetText(DPSMate.L["interrupts"])
-	_G(prestr..substr.."Dispels_Title"):SetText(DPSMate.L["dispels"])
-	_G(prestr..substr.."DispelsReceived_Title"):SetText(DPSMate.L["dispelsreceived"])
-	_G(prestr..substr.."Decurses_Title"):SetText(DPSMate.L["decurses"])
-	_G(prestr..substr.."DecursesReceived_Title"):SetText(DPSMate.L["decursesreceived"])
-	_G(prestr..substr.."Disease_Title"):SetText(DPSMate.L["curedisease"])
-	_G(prestr..substr.."DiseaseReceived_Title"):SetText(DPSMate.L["curediseasereceived"])
-	_G(prestr..substr.."Poison_Title"):SetText(DPSMate.L["curepoison"])
-	_G(prestr..substr.."PoisonReceived_Title"):SetText(DPSMate.L["curepoisonreceived"])
-	_G(prestr..substr.."Magic_Title"):SetText(DPSMate.L["liftmagic"])
-	_G(prestr..substr.."MagicReceived_Title"):SetText(DPSMate.L["liftmagicreceived"])
-	_G(prestr..substr.."AurasGained_Title"):SetText(DPSMate.L["aurasgained"])
-	_G(prestr..substr.."AurasLost_Title"):SetText(DPSMate.L["auraslost"])
-	_G(prestr..substr.."AuraUptime_Title"):SetText(DPSMate.L["aurauptime"])
-	_G(prestr..substr.."FriendlyFire_Title"):SetText(DPSMate.L["friendlyfire"])
-	_G(prestr..substr.."Procs_Title"):SetText(DPSMate.L["procs"])
-	_G(prestr..substr.."Casts_Title"):SetText(DPSMate.L["casts"])
-	_G(prestr..substr.."Threat_Title"):SetText(DPSMate.L["threat"])
-	_G(prestr..substr.."TPS_Title"):SetText(DPSMate.L["tps"])
-	_G(prestr..substr.."Fails_Title"):SetText(DPSMate.L["fails"])
-	_G(prestr..substr.."CCBreaker_Title"):SetText(DPSMate.L["cccbreaker"])
-	_G(prestr..substr.."OHPS_Title"):SetText(DPSMate.L["OHPS"])
-	_G(prestr..substr.."OHealingTaken_Title"):SetText(DPSMate.L["OHealingTaken"])
-	_G(prestr..substr.."FriendlyFireTaken_Title"):SetText(DPSMate.L["friendlyfiretaken"])
-	
-	-- Tab Tooltips
-	substr = "Tab_Tooltips_"
-	_G(prestr..substr.."Tooltips_Title"):SetText(DPSMate.L["showtooltips"])
-	_G(prestr..substr.."Tooltips").aide = DPSMate.L["showtooltipsTooltip"]
-	_G(prestr..substr.."InformativeTooltips_Title"):SetText(DPSMate.L["informativetooltips"])
-	_G(prestr..substr.."InformativeTooltips").aide = DPSMate.L["informativetooltipsTooltip"]
-	_G(prestr..substr.."RowsText"):SetText(DPSMate.L["subviewrows"])
-	_G(prestr..substr.."Rows").aide = DPSMate.L["subviewrowsTooltip"]
-	_G(prestr..substr.."Position_Text"):SetText(DPSMate.L["TooltipPositionDropDown"])
-	_G(prestr..substr.."Position").aide = DPSMate.L["TooltipPositionDropDownTooltip"]
-	
-	-- Raidleader
-	substr = "Tab_RaidLeader_"
-	_G(prestr..substr.."HelloWorldText"):SetText(DPSMate.L["helloworld"])
-	_G(prestr..substr.."HelloWorld").aide = DPSMate.L["helloworldTooltip"]
-	
-	-- Tab Broadcasting
-	substr = "Tab_Broadcasting_"
-	_G(prestr..substr.."Enable_Title"):SetText(DPSMate.L["enable"])
-	_G(prestr..substr.."Enable").aide = DPSMate.L["enablebroadcasting"]
-	_G(prestr..substr.."RaidWarning_Title"):SetText(DPSMate.L["useraidwarning"])
-	_G(prestr..substr.."RaidWarning").aide = DPSMate.L["useraidwarningTooltip"]
-	_G(prestr..substr.."Cooldowns_Title"):SetText(DPSMate.L["relevantcds"])
-	_G(prestr..substr.."Cooldowns").aide = DPSMate.L["relevantcdsTooltip"]
-	_G(prestr..substr.."Ress_Title"):SetText(DPSMate.L["ress"])
-	_G(prestr..substr.."Ress").aide = DPSMate.L["ressTooltip"]
-	_G(prestr..substr.."KillingBlows_Title"):SetText(DPSMate.L["killingblows"])
-	_G(prestr..substr.."KillingBlows").aide = DPSMate.L["killingblowsTooltip"]
-	_G(prestr..substr.."Fails_Title"):SetText(DPSMate.L["fails"])
-	_G(prestr..substr.."Fails").aide = DPSMate.L["failsTooltip"]
-	
-	-- Tab About
-	substr = "Tab_About_"
-	_G(prestr..substr.."What_Title"):SetText(DPSMate.L["whatisdpsmate"])
-	_G(prestr..substr.."What_Text"):SetText(DPSMate.L["whatisdpsmateText"])
-	_G(prestr..substr.."Who_Title"):SetText(DPSMate.L["whocreateddpsmate"])
-	_G(prestr..substr.."Who_Text"):SetText(DPSMate.L["whocreateddpsmateText"])
-	_G(prestr..substr.."Thanks_Title"):SetText(DPSMate.L["thanksto"])
-	_G(prestr..substr.."Thanks_Text"):SetText(DPSMate.L["thankstoText"])
-	
-	-- Damage done details
-	DPSMate_Details_DiagramLegend_Procs_Text:SetText(DPSMate.L["procs"])
-	DPSMate_Details_LogDetails_Block:SetText(DPSMate.L["block"])
-	DPSMate_Details_LogDetails_Glance:SetText(DPSMate.L["glance"])
-	DPSMate_Details_LogDetails_Hit:SetText(DPSMate.L["hit"])
-	DPSMate_Details_LogDetails_Amount:SetText(DPSMate.L["amount"])
-	DPSMate_Details_LogDetails_Average:SetText(DPSMate.L["average"])
-	DPSMate_Details_LogDetails_Min:SetText(DPSMate.L["min"])
-	DPSMate_Details_LogDetails_Max:SetText(DPSMate.L["max"])
-	DPSMate_Details_LogDetails_Crit:SetText(DPSMate.L["crit"])
-	DPSMate_Details_LogDetails_Miss:SetText(DPSMate.L["miss"])
-	DPSMate_Details_LogDetails_Parry:SetText(DPSMate.L["parry"])
-	DPSMate_Details_LogDetails_Dodge:SetText(DPSMate.L["dodge"])
-	DPSMate_Details_LogDetails_Resist:SetText(DPSMate.L["resist"])
-	
-	DPSMate_Details_CompareDamage_DiagramLegend_Procs_Text:SetText(DPSMate.L["procs"])
-	DPSMate_Details_CompareDamage_LogDetails_Block:SetText(DPSMate.L["block"])
-	DPSMate_Details_CompareDamage_LogDetails_Glance:SetText(DPSMate.L["glance"])
-	DPSMate_Details_CompareDamage_LogDetails_Hit:SetText(DPSMate.L["hit"])
-	DPSMate_Details_CompareDamage_LogDetails_Amount:SetText(DPSMate.L["amount"])
-	DPSMate_Details_CompareDamage_LogDetails_Average:SetText(DPSMate.L["average"])
-	DPSMate_Details_CompareDamage_LogDetails_Min:SetText(DPSMate.L["min"])
-	DPSMate_Details_CompareDamage_LogDetails_Max:SetText(DPSMate.L["max"])
-	DPSMate_Details_CompareDamage_LogDetails_Crit:SetText(DPSMate.L["crit"])
-	DPSMate_Details_CompareDamage_LogDetails_Miss:SetText(DPSMate.L["miss"])
-	DPSMate_Details_CompareDamage_LogDetails_Parry:SetText(DPSMate.L["parry"])
-	DPSMate_Details_CompareDamage_LogDetails_Dodge:SetText(DPSMate.L["dodge"])
-	DPSMate_Details_CompareDamage_LogDetails_Resist:SetText(DPSMate.L["resist"])
-	
-	DPSMate.Options.Options[1]["args"]["damage"] = {
-		order = 20,
-		type = 'toggle',
-		name = DPSMate.L["damage"],
-		desc = DPSMate.L["show"].." "..DPSMate.L["damage"]..".",
-		get = function() return DPSMateSettings["windows"][DPSMate.Options.Dewdrop:GetOpenedParent().Key]["options"][1]["damage"] end,
-		set = function() DPSMate.Options:ToggleDrewDrop(1, "damage", DPSMate.Options.Dewdrop:GetOpenedParent()) end,
-	}
-	DPSMate.Options.Options[1]["args"]["dps"] = {
-		order = 10,
-		type = 'toggle',
-		name = DPSMate.L["dps"],
-		desc = DPSMate.L["show"].." "..DPSMate.L["dps"]..".",
-		get = function() return DPSMateSettings["windows"][DPSMate.Options.Dewdrop:GetOpenedParent().Key]["options"][1]["dps"] end, -- Addons might conflicting here with dewdrop
-		set = function() DPSMate.Options:ToggleDrewDrop(1, "dps", DPSMate.Options.Dewdrop:GetOpenedParent()) end,
-	}
-	
-	-- Popups
-	DPSMate_PopUp_Text:SetText(DPSMate.L["popup"])
-	DPSMate_PopUp_TotalText:SetText(DPSMate.L["total"])
-	DPSMate_PopUp_CurrentText:SetText(DPSMate.L["current"])
-	DPSMate_PopUp_CancelText:SetText(DPSMate.L["cancel"])
-	DPSMate_Vote_Text:SetText(DPSMate.L["popup"])
-	DPSMate_Vote_AcceptText:SetText(DPSMate.L["vreset"])
-	DPSMate_Vote_CancelText:SetText(DPSMate.L["vdreset"])
-	DPSMate_Logout_Text:SetText(DPSMate.L["memory"])
-	DPSMate_Logout_AcceptText:SetText(DPSMate.L["accept"])
-	DPSMate_Logout_CancelText:SetText(DPSMate.L["decline"])
-	DPSMate_Report_Text:SetText(DPSMate.L["report"].." - "..DPSMate.L["name"])
-	DPSMate_Report_Channel_Text:SetText(DPSMate.L["channel"])
-	DPSMate_Report_Delay.aide = DPSMate.L["reportdelaytooltip"]
-	DPSMate_Report_Delay_Title:SetText(DPSMate.L["delay"])
-	DPSMate_Report_Editbox_Text:SetText(DPSMate.L["editboxtitle"])
-	DPSMate_Report_ReportButton:SetText(DPSMate.L["report"])
-	
-	
-	DPSMate.Options.Options[2]["args"]["total"]["name"] = DPSMate.L["total"]
-	DPSMate.Options.Options[2]["args"]["total"]["desc"] = DPSMate.L["totalmode"]
-	DPSMate.Options.Options[2]["args"]["currentFight"]["name"] = DPSMate.L["mcurrent"]
-	DPSMate.Options.Options[2]["args"]["currentFight"]["desc"] = DPSMate.L["currentmode"]
-	DPSMate.Options.Options[3]["args"]["test"]["name"] = DPSMate.L["testmode"]
-	DPSMate.Options.Options[3]["args"]["test"]["desc"] = DPSMate.L["testmodedesc"]
-	DPSMate.Options.Options[3]["args"]["report"]["name"] = DPSMate.L["report"]
-	DPSMate.Options.Options[3]["args"]["report"]["desc"] = DPSMate.L["reportsegment"]
-	DPSMate.Options.Options[3]["args"]["reset"]["name"] = DPSMate.L["reset"]
-	DPSMate.Options.Options[3]["args"]["reset"]["desc"] = DPSMate.L["resetdesc"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["name"] = DPSMate.L["mrealtime"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["desc"] = DPSMate.L["mrealtimedesc"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["args"]["damage"]["name"] = DPSMate.L["damagedone"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["args"]["damage"]["desc"] = DPSMate.L["realtimedmgdone"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["args"]["dmgt"]["name"] = DPSMate.L["damagetaken"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["args"]["dmgt"]["desc"] = DPSMate.L["realtimedmgtaken"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["args"]["heal"]["name"] = DPSMate.L["healing"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["args"]["heal"]["desc"] = DPSMate.L["realtimehealing"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["args"]["eheal"]["name"] = DPSMate.L["effectivehealing"]
-	DPSMate.Options.Options[3]["args"]["realtime"]["args"]["eheal"]["desc"] = DPSMate.L["realtimeehealing"]
-	DPSMate.Options.Options[3]["args"]["startnewsegment"]["name"] = DPSMate.L["newsegment"]
-	DPSMate.Options.Options[3]["args"]["startnewsegment"]["desc"] = DPSMate.L["newsegmentdesc"]
-	DPSMate.Options.Options[3]["args"]["deletesegment"]["name"] = DPSMate.L["removesegment"]
-	DPSMate.Options.Options[3]["args"]["deletesegment"]["desc"] = DPSMate.L["removesegmentdesc"]
-	DPSMate.Options.Options[3]["args"]["showAll"]["name"] = DPSMate.L["showAll"]
-	DPSMate.Options.Options[3]["args"]["showAll"]["desc"] = DPSMate.L["showAllDesc"]
-	DPSMate.Options.Options[3]["args"]["hideAll"]["name"] = DPSMate.L["hideAll"]
-	DPSMate.Options.Options[3]["args"]["hideAll"]["desc"] = DPSMate.L["hideAllDesc"]
-	DPSMate.Options.Options[3]["args"]["showwindow"]["name"] = DPSMate.L["showwindow"]
-	DPSMate.Options.Options[3]["args"]["showwindow"]["desc"] = DPSMate.L["showwindowdesc"]
-	DPSMate.Options.Options[3]["args"]["hidewindow"]["name"] = DPSMate.L["hidewindow"]
-	DPSMate.Options.Options[3]["args"]["hidewindow"]["desc"] = DPSMate.L["hidewindowdesc"]
-	DPSMate.Options.Options[3]["args"]["lock"]["name"] = DPSMate.L["lock"]
-	DPSMate.Options.Options[3]["args"]["lock"]["desc"] = DPSMate.L["lockdesc"]
-	DPSMate.Options.Options[3]["args"]["unlock"]["name"] = DPSMate.L["unlock"]
-	DPSMate.Options.Options[3]["args"]["unlock"]["desc"] = DPSMate.L["unlock"]
-	DPSMate.Options.Options[3]["args"]["configure"]["name"] = DPSMate.L["config"]
-	DPSMate.Options.Options[3]["args"]["configure"]["desc"] = DPSMate.L["config"]
-	DPSMate.Options.Options[3]["args"]["close"]["name"] = DPSMate.L["close"]
-	DPSMate.Options.Options[3]["args"]["close"]["desc"] = DPSMate.L["close"]
-	DPSMate.Options.Options[4]["args"]["report"]["name"] = DPSMate.L["report"]
-	DPSMate.Options.Options[4]["args"]["report"]["desc"] = DPSMate.L["reportdesc"]
-	DPSMate.Options.Options[4]["args"]["report"]["args"]["whisper"]["name"] = DPSMate.L["whisper"]
-	DPSMate.Options.Options[4]["args"]["report"]["args"]["whisper"]["desc"] = DPSMate.L["whisperdesc"]
-	DPSMate.Options.Options[4]["args"]["compare"]["name"] = DPSMate.L["comparewith"]
-	DPSMate.Options.Options[4]["args"]["compare"]["desc"] = DPSMate.L["comparewithdesc"]
-	DPSMate.Options.Options[5]["args"]["classes"]["name"] = DPSMate.L["classes"]
-	DPSMate.Options.Options[5]["args"]["classes"]["desc"] = DPSMate.L["classesdesc"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["warrior"]["name"] = DPSMate.L["warrior"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["warrior"]["desc"] = DPSMate.L["warlockdesc"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["rogue"]["name"] = DPSMate.L["rogue"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["rogue"]["desc"] = DPSMate.L["roguedesc"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["priest"]["name"] = DPSMate.L["priest"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["priest"]["desc"] = DPSMate.L["priestdesc"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["hunter"]["name"] = DPSMate.L["hunter"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["hunter"]["desc"] = DPSMate.L["hunterdesc"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["druid"]["name"] = DPSMate.L["druid"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["druid"]["desc"] = DPSMate.L["druiddesc"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["mage"]["name"] = DPSMate.L["mage"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["mage"]["desc"] = DPSMate.L["magedesc"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["warlock"]["name"] = DPSMate.L["warlock"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["warlock"]["desc"] = DPSMate.L["warlockdesc"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["paladin"]["name"] = DPSMate.L["paladin"]
-	DPSMate.Options.Options[5]["args"]["classes"]["args"]["paladin"]["desc"] = DPSMate.L["paladindesc"]
-	DPSMate.Options.Options[5]["args"]["people"]["name"] = DPSMate.L["certainnames"]
-	DPSMate.Options.Options[5]["args"]["people"]["desc"] = DPSMate.L["certainnamesdesc"]
-	DPSMate.Options.Options[5]["args"]["group"]["name"] = DPSMate.L["grouponly"]
-	DPSMate.Options.Options[5]["args"]["group"]["desc"] = DPSMate.L["grouponlydesc"]
+
+
+	-- Updating preloaded configs (deferred until frames exist)
+	DPSMate.L.UpdateFrameTexts = function()
+		local _G = getglobal
+		local prestr = "DPSMate_ConfigMenu_"
+		-- Menu
+		local substr = "Menu_"
+		_G(prestr .. substr .. "Button1"):SetText(DPSMate.L["window"])
+		_G(prestr .. substr .. "Button2"):SetText(DPSMate.L["dataresets"])
+		_G(prestr .. substr .. "Button3"):SetText(DPSMate.L["generaloptions"])
+		_G(prestr .. substr .. "Button4"):SetText(DPSMate.L["columns"])
+		_G(prestr .. substr .. "Button5"):SetText(DPSMate.L["tooltips"])
+		_G(prestr .. substr .. "Button6"):SetText(DPSMate.L["modes"])
+		_G(prestr .. substr .. "Button7"):SetText(DPSMate.L["raidleader"])
+		_G(prestr .. substr .. "Button8"):SetText(DPSMate.L["broadcasting"])
+		_G(prestr .. substr .. "Button9"):SetText(DPSMate.L["about"])
+
+		-- Window
+		substr = "Tab_Window_"
+		_G(prestr .. substr .. "EditboxText"):SetText(DPSMate.L["createwindow"])
+		_G(prestr .. substr .. "Editbox").aide = DPSMate.L["createwindowtooltip"]
+		_G(prestr .. substr .. "SubmitText"):SetText(DPSMate.L["submit"])
+		_G(prestr .. substr .. "Submit").aide = DPSMate.L["submitTooltip"]
+		_G(prestr .. substr .. "Remove_Text"):SetText(DPSMate.L["availwindows"])
+		_G(prestr .. substr .. "Remove").aide = DPSMate.L["availwindowsTooltip"]
+		_G(prestr .. substr .. "ButtonRemoveText"):SetText(DPSMate.L["remove"])
+		_G(prestr .. substr .. "ButtonRemove").aide = DPSMate.L["removeTooltip"]
+		_G(prestr .. substr .. "ConfigFrom_Text"):SetText(DPSMate.L["configfrom"])
+		_G(prestr .. substr .. "ConfigFrom").aide = DPSMate.L["configfromTooltip"]
+		_G(prestr .. substr .. "ConfigTo_Text"):SetText(DPSMate.L["configto"])
+		_G(prestr .. substr .. "ConfigTo").aide = DPSMate.L["configtoTooltip"]
+		_G(prestr .. substr .. "ButtonCopyText"):SetText(DPSMate.L["copy"])
+		_G(prestr .. substr .. "ButtonCopy").aide = DPSMate.L["copyTooltip"]
+		_G(prestr .. substr .. "Lock_Title"):SetText(DPSMate.L["lock"])
+		_G(prestr .. substr .. "Lock").aide = DPSMate.L["locktooltip"]
+		_G(prestr .. substr .. "Testmode_Title"):SetText(DPSMate.L["testmode"])
+		_G(prestr .. substr .. "Testmode").aide = DPSMate.L["testmodetooltip"]
+
+		-- Bars
+		substr = "Tab_Bars_"
+		_G(prestr .. substr .. "BarFont_Text"):SetText(DPSMate.L["barfont"])
+		_G(prestr .. substr .. "BarFont").aide = DPSMate.L["barfontTooltip"]
+		_G(prestr .. substr .. "BarFontSizeText"):SetText(DPSMate.L["barfontsize"])
+		_G(prestr .. substr .. "BarFontSize").aide = DPSMate.L["barfontsizeTooltip"]
+		_G(prestr .. substr .. "BarFontFlag_Text"):SetText(DPSMate.L["barfontflags"])
+		_G(prestr .. substr .. "BarFontFlag").aide = DPSMate.L["barfontflagsTooltip"]
+		_G(prestr .. substr .. "BarTexture_Text"):SetText(DPSMate.L["bartexture"])
+		_G(prestr .. substr .. "BarTexture").aide = DPSMate.L["bartextureTooltip"]
+		_G(prestr .. substr .. "BarSpacingText"):SetText(DPSMate.L["barspacing"])
+		_G(prestr .. substr .. "BarSpacing").aide = DPSMate.L["barspacingTooltip"]
+		_G(prestr .. substr .. "BarHeightText"):SetText(DPSMate.L["barheight"])
+		_G(prestr .. substr .. "BarHeight").aide = DPSMate.L["barheightTooltip"]
+		_G(prestr .. substr .. "FontColor_Font"):SetText(DPSMate.L["fontcolor"])
+		_G(prestr .. substr .. "FontColor").aide = DPSMate.L["fontcolorTooltip"]
+		_G(prestr .. substr .. "BackgroundBarColor_Font"):SetText(DPSMate.L["bgbarcolor"])
+		_G(prestr .. substr .. "BackgroundBarColor").aide = DPSMate.L["bgbarcolorTooltip"]
+		_G(prestr .. substr .. "ClassIcons_Title"):SetText(DPSMate.L["classicons"])
+		_G(prestr .. substr .. "ClassIcons").aide = DPSMate.L["classiconstooltip"]
+		_G(prestr .. substr .. "Ranks_Title"):SetText(DPSMate.L["ranks"])
+		_G(prestr .. substr .. "Ranks").aide = DPSMate.L["rankstooltip"]
+		_G(prestr .. substr .. "DisableBG_Title"):SetText(DPSMate.L["disablebarbg"])
+		_G(prestr .. substr .. "DisableBG").aide = DPSMate.L["disablebarbgtooltip"]
+		_G(prestr .. substr .. "TotalAlphaText"):SetText(DPSMate.L["totalbaropacity"])
+		_G(prestr .. substr .. "TotalAlpha").aide = DPSMate.L["totalbaropacitytooltip"]
+
+		-- Titlebar
+		substr = "Tab_TitleBar_"
+		_G(prestr .. substr .. "Enable_Title"):SetText(DPSMate.L["enable"])
+		_G(prestr .. substr .. "Enable").aide = DPSMate.L["enabletitlebartooltip"]
+		_G(prestr .. substr .. "BarFont_Text"):SetText(DPSMate.L["barfont"])
+		_G(prestr .. substr .. "BarFont").aide = DPSMate.L["barfontTooltip"]
+		_G(prestr .. substr .. "BarFontSizeText"):SetText(DPSMate.L["barfontsize"])
+		_G(prestr .. substr .. "BarFontSize").aide = DPSMate.L["barfontsizeTooltip"]
+		_G(prestr .. substr .. "BarFontFlag_Text"):SetText(DPSMate.L["barfontflags"])
+		_G(prestr .. substr .. "BarFontFlag").aide = DPSMate.L["barfontflagsTooltip"]
+		_G(prestr .. substr .. "BarTexture_Text"):SetText(DPSMate.L["bartexture"])
+		_G(prestr .. substr .. "BarTexture").aide = DPSMate.L["bartextureTooltip"]
+		_G(prestr .. substr .. "BarHeightText"):SetText(DPSMate.L["barheight"])
+		_G(prestr .. substr .. "BarHeight").aide = DPSMate.L["barheightTooltip"]
+		_G(prestr .. substr .. "BGOpacityText"):SetText(DPSMate.L["bgOpacity"])
+		_G(prestr .. substr .. "BGOpacity").aide = DPSMate.L["bgOpacityTooltip"]
+		_G(prestr .. substr .. "BGColor_Font"):SetText(DPSMate.L["bgcolor"])
+		_G(prestr .. substr .. "BGColor").aide = DPSMate.L["bgcolorTooltip"]
+		_G(prestr .. substr .. "FontColor_Font"):SetText(DPSMate.L["fontcolor"])
+		_G(prestr .. substr .. "FontColor").aide = DPSMate.L["fontcolorTooltip"]
+		_G(prestr .. substr .. "Box1_Report_Title"):SetText(DPSMate.L["report"])
+		_G(prestr .. substr .. "Box1_Report").aide = DPSMate.L["buttonshowtooltip"]
+		_G(prestr .. substr .. "Box1_Mode_Title"):SetText(DPSMate.L["mode"])
+		_G(prestr .. substr .. "Box1_Mode").aide = DPSMate.L["buttonshowtooltip"]
+		_G(prestr .. substr .. "Box1_Reset_Title"):SetText(DPSMate.L["reset"])
+		_G(prestr .. substr .. "Box1_Reset").aide = DPSMate.L["buttonshowtooltip"]
+		_G(prestr .. substr .. "Box1_Config_Title"):SetText(DPSMate.L["config"])
+		_G(prestr .. substr .. "Box1_Config").aide = DPSMate.L["buttonshowtooltip"]
+		_G(prestr .. substr .. "Box1_Sync_Title"):SetText(DPSMate.L["sync"])
+		_G(prestr .. substr .. "Box1_Sync").aide = DPSMate.L["buttonshowtooltip"]
+		_G(prestr .. substr .. "Box1_Enable_Title"):SetText(DPSMate.L["enabledisable"])
+		_G(prestr .. substr .. "Box1_Enable").aide = DPSMate.L["buttonshowtooltip"]
+		_G(prestr .. substr .. "Box1_Filter_Title"):SetText(DPSMate.L["filter"])
+		_G(prestr .. substr .. "Box1_Filter").aide = DPSMate.L["buttonshowtooltip"]
+		_G(prestr .. substr .. "Box1_CBTDisplay_Title"):SetText(DPSMate.L["cbtdisplay"])
+		_G(prestr .. substr .. "Box1_CBTDisplay").aide = DPSMate.L["buttonshowtooltip"]
+
+		-- Tab content
+		substr = "Tab_Content_"
+		_G(prestr .. substr .. "BGDropDown_Text"):SetText(DPSMate.L["bgtex"])
+		_G(prestr .. substr .. "BGDropDown").aide = DPSMate.L["bgtexTooltip"]
+		_G(prestr .. substr .. "ScaleText"):SetText(DPSMate.L["scale"])
+		_G(prestr .. substr .. "Scale").aide = DPSMate.L["scaleTooltip"]
+		_G(prestr .. substr .. "OpacityText"):SetText(DPSMate.L["opacity"])
+		_G(prestr .. substr .. "Opacity").aide = DPSMate.L["opacityTooltip"]
+		_G(prestr .. substr .. "BGOpacityText"):SetText(DPSMate.L["bgOpacity"])
+		_G(prestr .. substr .. "BGOpacity").aide = DPSMate.L["bgOpacityTooltip"]
+		_G(prestr .. substr .. "BorderOpacityText"):SetText(DPSMate.L["borderOpacity"])
+		_G(prestr .. substr .. "BorderOpacity").aide = DPSMate.L["borderOpacityTooltip"]
+		_G(prestr .. substr .. "BGColor_Font"):SetText(DPSMate.L["bgcolor"])
+		_G(prestr .. substr .. "BGColor").aide = DPSMate.L["bgcolorTooltip"]
+		_G(prestr .. substr .. "NumberFormat_Text"):SetText(DPSMate.L["numberformat"])
+		_G(prestr .. substr .. "NumberFormat").aide = DPSMate.L["numberformatTooltip"]
+		_G(prestr .. substr .. "BorderTexture_Text"):SetText(DPSMate.L["bordertexture"])
+		_G(prestr .. substr .. "BorderTexture").aide = DPSMate.L["bordertextureTooltip"]
+		_G(prestr .. substr .. "BorderStrata_Text"):SetText(DPSMate.L["borderstrata"])
+		_G(prestr .. substr .. "BorderStrata").aide = DPSMate.L["borderstrataTooltip"]
+		_G(prestr .. substr .. "BorderColor_Font"):SetText(DPSMate.L["bordercolor"])
+		_G(prestr .. substr .. "BorderColor").aide = DPSMate.L["bordercolorTooltip"]
+
+		-- Tab Dataresets
+		substr = "Tab_DataResets_"
+		_G(prestr .. substr .. "EnteringWorld_Text"):SetText(DPSMate.L["enterworldinstance"])
+		_G(prestr .. substr .. "EnteringWorld").aide = DPSMate.L["enterworldinstanceTooltip"]
+		_G(prestr .. substr .. "JoinParty_Text"):SetText(DPSMate.L["joinparty"])
+		_G(prestr .. substr .. "JoinParty").aide = DPSMate.L["joinpartyTooltip"]
+		_G(prestr .. substr .. "PartyMemberChanged_Text"):SetText(DPSMate.L["partymemberchanged"])
+		_G(prestr .. substr .. "PartyMemberChanged").aide = DPSMate.L["partymemberchangedTooltip"]
+		_G(prestr .. substr .. "LeaveParty_Text"):SetText(DPSMate.L["leavingparty"])
+		_G(prestr .. substr .. "LeaveParty").aide = DPSMate.L["leavingpartyTooltip"]
+		_G(prestr .. substr .. "Sync_Text"):SetText(DPSMate.L["syncrequest"])
+		_G(prestr .. substr .. "Sync").aide = DPSMate.L["syncrequesttooltip"]
+		_G(prestr .. substr .. "Logout_Text"):SetText(DPSMate.L["dataresetslogout"])
+		_G(prestr .. substr .. "Logout").aide = DPSMate.L["dataresetslogouttooltip"]
+
+		-- Tab general options
+		substr = "Tab_GeneralOptions_"
+		_G(prestr .. substr .. "Minimap_Title"):SetText(DPSMate.L["minimap"])
+		_G(prestr .. substr .. "Minimap").aide = DPSMate.L["minimaptooltip"]
+		_G(prestr .. substr .. "Total_Title"):SetText(DPSMate.L["showtotal"])
+		_G(prestr .. substr .. "Total").aide = DPSMate.L["showtotaltooltip"]
+		_G(prestr .. substr .. "Solo_Title"):SetText(DPSMate.L["solo"])
+		_G(prestr .. substr .. "Solo").aide = DPSMate.L["solotooltip"]
+		_G(prestr .. substr .. "Combat_Title"):SetText(DPSMate.L["combat"])
+		_G(prestr .. substr .. "Combat").aide = DPSMate.L["combattooltip"]
+		_G(prestr .. substr .. "Login_Title"):SetText(DPSMate.L["loginhide"])
+		_G(prestr .. substr .. "Login").aide = DPSMate.L["loginhidetooltip"]
+		_G(prestr .. substr .. "BossFights_Title"):SetText(DPSMate.L["bossfights"])
+		_G(prestr .. substr .. "BossFights").aide = DPSMate.L["bossfightstooltip"]
+		_G(prestr .. substr .. "PVP_Title"):SetText(DPSMate.L["pvp"])
+		_G(prestr .. substr .. "PVP").aide = DPSMate.L["pvptooltip"]
+		_G(prestr .. substr .. "Disable_Title"):SetText(DPSMate.L["disable"])
+		_G(prestr .. substr .. "Disable").aide = DPSMate.L["disabletooltip"]
+		_G(prestr .. substr .. "MergePets_Title"):SetText(DPSMate.L["mergepets"])
+		_G(prestr .. substr .. "MergePets").aide = DPSMate.L["mergepetstooltip"]
+		_G(prestr .. substr .. "SegmentsText"):SetText(DPSMate.L["segments"])
+		_G(prestr .. substr .. "Segments").aide = DPSMate.L["segmentsTooltip"]
+		_G(prestr .. substr .. "TargetScaleText"):SetText(DPSMate.L["targetscale"])
+		_G(prestr .. substr .. "TargetScale").aide = DPSMate.L["targetscaleTooltip"]
+
+		-- Tab Columns
+		substr = "Tab_Columns_Child_"
+		_G(prestr .. substr .. "DPS_Title"):SetText(DPSMate.L["dps"])
+		_G(prestr .. substr .. "Damage_Title"):SetText(DPSMate.L["damage"])
+		_G(prestr .. substr .. "DamageTaken_Title"):SetText(DPSMate.L["damagetaken"])
+		_G(prestr .. substr .. "DTPS_Title"):SetText(DPSMate.L["dtps"])
+		_G(prestr .. substr .. "EDD_Title"):SetText(DPSMate.L["enemydamagedone"])
+		_G(prestr .. substr .. "EDT_Title"):SetText(DPSMate.L["enemydamagetaken"])
+		_G(prestr .. substr .. "Healing_Title"):SetText(DPSMate.L["healing"])
+		_G(prestr .. substr .. "HealingTaken_Title"):SetText(DPSMate.L["healingtaken"])
+		_G(prestr .. substr .. "HPS_Title"):SetText(DPSMate.L["hps"])
+		_G(prestr .. substr .. "Overhealing_Title"):SetText(DPSMate.L["overhealing"])
+		_G(prestr .. substr .. "EffectiveHealing_Title"):SetText(DPSMate.L["effectivehealing"])
+		_G(prestr .. substr .. "EffectiveHealingTaken_Title"):SetText(DPSMate.L["effectivehealingtaken"])
+		_G(prestr .. substr .. "EffectiveHPS_Title"):SetText(DPSMate.L["effectivehps"])
+		_G(prestr .. substr .. "Absorbs_Title"):SetText(DPSMate.L["absorbs"])
+		_G(prestr .. substr .. "AbsorbsTaken_Title"):SetText(DPSMate.L["absorbstaken"])
+		_G(prestr .. substr .. "HAB_Title"):SetText(DPSMate.L["healingandabsorbs"])
+		_G(prestr .. substr .. "Deaths_Title"):SetText(DPSMate.L["deaths"])
+		_G(prestr .. substr .. "Interrupts_Title"):SetText(DPSMate.L["interrupts"])
+		_G(prestr .. substr .. "Dispels_Title"):SetText(DPSMate.L["dispels"])
+		_G(prestr .. substr .. "DispelsReceived_Title"):SetText(DPSMate.L["dispelsreceived"])
+		_G(prestr .. substr .. "Decurses_Title"):SetText(DPSMate.L["decurses"])
+		_G(prestr .. substr .. "DecursesReceived_Title"):SetText(DPSMate.L["decursesreceived"])
+		_G(prestr .. substr .. "Disease_Title"):SetText(DPSMate.L["curedisease"])
+		_G(prestr .. substr .. "DiseaseReceived_Title"):SetText(DPSMate.L["curediseasereceived"])
+		_G(prestr .. substr .. "Poison_Title"):SetText(DPSMate.L["curepoison"])
+		_G(prestr .. substr .. "PoisonReceived_Title"):SetText(DPSMate.L["curepoisonreceived"])
+		_G(prestr .. substr .. "Magic_Title"):SetText(DPSMate.L["liftmagic"])
+		_G(prestr .. substr .. "MagicReceived_Title"):SetText(DPSMate.L["liftmagicreceived"])
+		_G(prestr .. substr .. "AurasGained_Title"):SetText(DPSMate.L["aurasgained"])
+		_G(prestr .. substr .. "AurasLost_Title"):SetText(DPSMate.L["auraslost"])
+		_G(prestr .. substr .. "AuraUptime_Title"):SetText(DPSMate.L["aurauptime"])
+		_G(prestr .. substr .. "FriendlyFire_Title"):SetText(DPSMate.L["friendlyfire"])
+		_G(prestr .. substr .. "Procs_Title"):SetText(DPSMate.L["procs"])
+		_G(prestr .. substr .. "Casts_Title"):SetText(DPSMate.L["casts"])
+		_G(prestr .. substr .. "Threat_Title"):SetText(DPSMate.L["threat"])
+		_G(prestr .. substr .. "TPS_Title"):SetText(DPSMate.L["tps"])
+		_G(prestr .. substr .. "Fails_Title"):SetText(DPSMate.L["fails"])
+		_G(prestr .. substr .. "CCBreaker_Title"):SetText(DPSMate.L["cccbreaker"])
+		_G(prestr .. substr .. "OHPS_Title"):SetText(DPSMate.L["OHPS"])
+		_G(prestr .. substr .. "OHealingTaken_Title"):SetText(DPSMate.L["OHealingTaken"])
+		_G(prestr .. substr .. "FriendlyFireTaken_Title"):SetText(DPSMate.L["friendlyfiretaken"])
+
+		-- Tab Tooltips
+		substr = "Tab_Tooltips_"
+		_G(prestr .. substr .. "Tooltips_Title"):SetText(DPSMate.L["showtooltips"])
+		_G(prestr .. substr .. "Tooltips").aide = DPSMate.L["showtooltipsTooltip"]
+		_G(prestr .. substr .. "InformativeTooltips_Title"):SetText(DPSMate.L["informativetooltips"])
+		_G(prestr .. substr .. "InformativeTooltips").aide = DPSMate.L["informativetooltipsTooltip"]
+		_G(prestr .. substr .. "RowsText"):SetText(DPSMate.L["subviewrows"])
+		_G(prestr .. substr .. "Rows").aide = DPSMate.L["subviewrowsTooltip"]
+		_G(prestr .. substr .. "Position_Text"):SetText(DPSMate.L["TooltipPositionDropDown"])
+		_G(prestr .. substr .. "Position").aide = DPSMate.L["TooltipPositionDropDownTooltip"]
+
+		-- Raidleader
+		substr = "Tab_RaidLeader_"
+		_G(prestr .. substr .. "HelloWorldText"):SetText(DPSMate.L["helloworld"])
+		_G(prestr .. substr .. "HelloWorld").aide = DPSMate.L["helloworldTooltip"]
+
+		-- Tab Broadcasting
+		substr = "Tab_Broadcasting_"
+		_G(prestr .. substr .. "Enable_Title"):SetText(DPSMate.L["enable"])
+		_G(prestr .. substr .. "Enable").aide = DPSMate.L["enablebroadcasting"]
+		_G(prestr .. substr .. "RaidWarning_Title"):SetText(DPSMate.L["useraidwarning"])
+		_G(prestr .. substr .. "RaidWarning").aide = DPSMate.L["useraidwarningTooltip"]
+		_G(prestr .. substr .. "Cooldowns_Title"):SetText(DPSMate.L["relevantcds"])
+		_G(prestr .. substr .. "Cooldowns").aide = DPSMate.L["relevantcdsTooltip"]
+		_G(prestr .. substr .. "Ress_Title"):SetText(DPSMate.L["ress"])
+		_G(prestr .. substr .. "Ress").aide = DPSMate.L["ressTooltip"]
+		_G(prestr .. substr .. "KillingBlows_Title"):SetText(DPSMate.L["killingblows"])
+		_G(prestr .. substr .. "KillingBlows").aide = DPSMate.L["killingblowsTooltip"]
+		_G(prestr .. substr .. "Fails_Title"):SetText(DPSMate.L["fails"])
+		_G(prestr .. substr .. "Fails").aide = DPSMate.L["failsTooltip"]
+
+		-- Tab About
+		substr = "Tab_About_"
+		_G(prestr .. substr .. "What_Title"):SetText(DPSMate.L["whatisdpsmate"])
+		_G(prestr .. substr .. "What_Text"):SetText(DPSMate.L["whatisdpsmateText"])
+		_G(prestr .. substr .. "Who_Title"):SetText(DPSMate.L["whocreateddpsmate"])
+		_G(prestr .. substr .. "Who_Text"):SetText(DPSMate.L["whocreateddpsmateText"])
+		_G(prestr .. substr .. "Thanks_Title"):SetText(DPSMate.L["thanksto"])
+		_G(prestr .. substr .. "Thanks_Text"):SetText(DPSMate.L["thankstoText"])
+
+		-- Damage done details
+		DPSMate_Details_DiagramLegend_Procs_Text:SetText(DPSMate.L["procs"])
+		DPSMate_Details_LogDetails_Block:SetText(DPSMate.L["block"])
+		DPSMate_Details_LogDetails_Glance:SetText(DPSMate.L["glance"])
+		DPSMate_Details_LogDetails_Hit:SetText(DPSMate.L["hit"])
+		DPSMate_Details_LogDetails_Amount:SetText(DPSMate.L["amount"])
+		DPSMate_Details_LogDetails_Average:SetText(DPSMate.L["average"])
+		DPSMate_Details_LogDetails_Min:SetText(DPSMate.L["min"])
+		DPSMate_Details_LogDetails_Max:SetText(DPSMate.L["max"])
+		DPSMate_Details_LogDetails_Crit:SetText(DPSMate.L["crit"])
+		DPSMate_Details_LogDetails_Miss:SetText(DPSMate.L["miss"])
+		DPSMate_Details_LogDetails_Parry:SetText(DPSMate.L["parry"])
+		DPSMate_Details_LogDetails_Dodge:SetText(DPSMate.L["dodge"])
+		DPSMate_Details_LogDetails_Resist:SetText(DPSMate.L["resist"])
+
+		DPSMate_Details_CompareDamage_DiagramLegend_Procs_Text:SetText(DPSMate.L["procs"])
+		DPSMate_Details_CompareDamage_LogDetails_Block:SetText(DPSMate.L["block"])
+		DPSMate_Details_CompareDamage_LogDetails_Glance:SetText(DPSMate.L["glance"])
+		DPSMate_Details_CompareDamage_LogDetails_Hit:SetText(DPSMate.L["hit"])
+		DPSMate_Details_CompareDamage_LogDetails_Amount:SetText(DPSMate.L["amount"])
+		DPSMate_Details_CompareDamage_LogDetails_Average:SetText(DPSMate.L["average"])
+		DPSMate_Details_CompareDamage_LogDetails_Min:SetText(DPSMate.L["min"])
+		DPSMate_Details_CompareDamage_LogDetails_Max:SetText(DPSMate.L["max"])
+		DPSMate_Details_CompareDamage_LogDetails_Crit:SetText(DPSMate.L["crit"])
+		DPSMate_Details_CompareDamage_LogDetails_Miss:SetText(DPSMate.L["miss"])
+		DPSMate_Details_CompareDamage_LogDetails_Parry:SetText(DPSMate.L["parry"])
+		DPSMate_Details_CompareDamage_LogDetails_Dodge:SetText(DPSMate.L["dodge"])
+		DPSMate_Details_CompareDamage_LogDetails_Resist:SetText(DPSMate.L["resist"])
+
+		DPSMate.Options.Options[1]["args"]["damage"] = {
+			order = 20,
+			type = 'toggle',
+			name = DPSMate.L["damage"],
+			desc = DPSMate.L["show"] .. " " .. DPSMate.L["damage"] .. ".",
+			get = function() return DPSMateSettings["windows"][DPSMate.Options.Dewdrop:GetOpenedParent().Key]["options"][1]["damage"] end,
+			set = function() DPSMate.Options:ToggleDrewDrop(1, "damage", DPSMate.Options.Dewdrop:GetOpenedParent()) end,
+		}
+		DPSMate.Options.Options[1]["args"]["dps"] = {
+			order = 10,
+			type = 'toggle',
+			name = DPSMate.L["dps"],
+			desc = DPSMate.L["show"] .. " " .. DPSMate.L["dps"] .. ".",
+			get = function() return DPSMateSettings["windows"][DPSMate.Options.Dewdrop:GetOpenedParent().Key]["options"][1]["dps"] end, -- Addons might conflicting here with dewdrop
+			set = function() DPSMate.Options:ToggleDrewDrop(1, "dps", DPSMate.Options.Dewdrop:GetOpenedParent()) end,
+		}
+
+		-- Popups
+		DPSMate_PopUp_Text:SetText(DPSMate.L["popup"])
+		DPSMate_PopUp_TotalText:SetText(DPSMate.L["total"])
+		DPSMate_PopUp_CurrentText:SetText(DPSMate.L["current"])
+		DPSMate_PopUp_CancelText:SetText(DPSMate.L["cancel"])
+		DPSMate_Vote_Text:SetText(DPSMate.L["popup"])
+		DPSMate_Vote_AcceptText:SetText(DPSMate.L["vreset"])
+		DPSMate_Vote_CancelText:SetText(DPSMate.L["vdreset"])
+		DPSMate_Logout_Text:SetText(DPSMate.L["memory"])
+		DPSMate_Logout_AcceptText:SetText(DPSMate.L["accept"])
+		DPSMate_Logout_CancelText:SetText(DPSMate.L["decline"])
+		DPSMate_Report_Text:SetText(DPSMate.L["report"] .. " - " .. DPSMate.L["name"])
+		DPSMate_Report_Channel_Text:SetText(DPSMate.L["channel"])
+		DPSMate_Report_Delay.aide = DPSMate.L["reportdelaytooltip"]
+		DPSMate_Report_Delay_Title:SetText(DPSMate.L["delay"])
+		DPSMate_Report_Editbox_Text:SetText(DPSMate.L["editboxtitle"])
+		DPSMate_Report_ReportButton:SetText(DPSMate.L["report"])
+
+
+		DPSMate.Options.Options[2]["args"]["total"]["name"] = DPSMate.L["total"]
+		DPSMate.Options.Options[2]["args"]["total"]["desc"] = DPSMate.L["totalmode"]
+		DPSMate.Options.Options[2]["args"]["currentFight"]["name"] = DPSMate.L["mcurrent"]
+		DPSMate.Options.Options[2]["args"]["currentFight"]["desc"] = DPSMate.L["currentmode"]
+		DPSMate.Options.Options[3]["args"]["test"]["name"] = DPSMate.L["testmode"]
+		DPSMate.Options.Options[3]["args"]["test"]["desc"] = DPSMate.L["testmodedesc"]
+		DPSMate.Options.Options[3]["args"]["report"]["name"] = DPSMate.L["report"]
+		DPSMate.Options.Options[3]["args"]["report"]["desc"] = DPSMate.L["reportsegment"]
+		DPSMate.Options.Options[3]["args"]["reset"]["name"] = DPSMate.L["reset"]
+		DPSMate.Options.Options[3]["args"]["reset"]["desc"] = DPSMate.L["resetdesc"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["name"] = DPSMate.L["mrealtime"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["desc"] = DPSMate.L["mrealtimedesc"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["args"]["damage"]["name"] = DPSMate.L["damagedone"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["args"]["damage"]["desc"] = DPSMate.L["realtimedmgdone"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["args"]["dmgt"]["name"] = DPSMate.L["damagetaken"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["args"]["dmgt"]["desc"] = DPSMate.L["realtimedmgtaken"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["args"]["heal"]["name"] = DPSMate.L["healing"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["args"]["heal"]["desc"] = DPSMate.L["realtimehealing"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["args"]["eheal"]["name"] = DPSMate.L["effectivehealing"]
+		DPSMate.Options.Options[3]["args"]["realtime"]["args"]["eheal"]["desc"] = DPSMate.L["realtimeehealing"]
+		DPSMate.Options.Options[3]["args"]["startnewsegment"]["name"] = DPSMate.L["newsegment"]
+		DPSMate.Options.Options[3]["args"]["startnewsegment"]["desc"] = DPSMate.L["newsegmentdesc"]
+		DPSMate.Options.Options[3]["args"]["deletesegment"]["name"] = DPSMate.L["removesegment"]
+		DPSMate.Options.Options[3]["args"]["deletesegment"]["desc"] = DPSMate.L["removesegmentdesc"]
+		DPSMate.Options.Options[3]["args"]["showAll"]["name"] = DPSMate.L["showAll"]
+		DPSMate.Options.Options[3]["args"]["showAll"]["desc"] = DPSMate.L["showAllDesc"]
+		DPSMate.Options.Options[3]["args"]["hideAll"]["name"] = DPSMate.L["hideAll"]
+		DPSMate.Options.Options[3]["args"]["hideAll"]["desc"] = DPSMate.L["hideAllDesc"]
+		DPSMate.Options.Options[3]["args"]["showwindow"]["name"] = DPSMate.L["showwindow"]
+		DPSMate.Options.Options[3]["args"]["showwindow"]["desc"] = DPSMate.L["showwindowdesc"]
+		DPSMate.Options.Options[3]["args"]["hidewindow"]["name"] = DPSMate.L["hidewindow"]
+		DPSMate.Options.Options[3]["args"]["hidewindow"]["desc"] = DPSMate.L["hidewindowdesc"]
+		DPSMate.Options.Options[3]["args"]["lock"]["name"] = DPSMate.L["lock"]
+		DPSMate.Options.Options[3]["args"]["lock"]["desc"] = DPSMate.L["lockdesc"]
+		DPSMate.Options.Options[3]["args"]["unlock"]["name"] = DPSMate.L["unlock"]
+		DPSMate.Options.Options[3]["args"]["unlock"]["desc"] = DPSMate.L["unlock"]
+		DPSMate.Options.Options[3]["args"]["configure"]["name"] = DPSMate.L["config"]
+		DPSMate.Options.Options[3]["args"]["configure"]["desc"] = DPSMate.L["config"]
+		DPSMate.Options.Options[3]["args"]["close"]["name"] = DPSMate.L["close"]
+		DPSMate.Options.Options[3]["args"]["close"]["desc"] = DPSMate.L["close"]
+		DPSMate.Options.Options[4]["args"]["report"]["name"] = DPSMate.L["report"]
+		DPSMate.Options.Options[4]["args"]["report"]["desc"] = DPSMate.L["reportdesc"]
+		DPSMate.Options.Options[4]["args"]["report"]["args"]["whisper"]["name"] = DPSMate.L["whisper"]
+		DPSMate.Options.Options[4]["args"]["report"]["args"]["whisper"]["desc"] = DPSMate.L["whisperdesc"]
+		DPSMate.Options.Options[4]["args"]["compare"]["name"] = DPSMate.L["comparewith"]
+		DPSMate.Options.Options[4]["args"]["compare"]["desc"] = DPSMate.L["comparewithdesc"]
+		DPSMate.Options.Options[5]["args"]["classes"]["name"] = DPSMate.L["classes"]
+		DPSMate.Options.Options[5]["args"]["classes"]["desc"] = DPSMate.L["classesdesc"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["warrior"]["name"] = DPSMate.L["warrior"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["warrior"]["desc"] = DPSMate.L["warlockdesc"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["rogue"]["name"] = DPSMate.L["rogue"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["rogue"]["desc"] = DPSMate.L["roguedesc"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["priest"]["name"] = DPSMate.L["priest"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["priest"]["desc"] = DPSMate.L["priestdesc"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["hunter"]["name"] = DPSMate.L["hunter"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["hunter"]["desc"] = DPSMate.L["hunterdesc"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["druid"]["name"] = DPSMate.L["druid"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["druid"]["desc"] = DPSMate.L["druiddesc"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["mage"]["name"] = DPSMate.L["mage"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["mage"]["desc"] = DPSMate.L["magedesc"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["warlock"]["name"] = DPSMate.L["warlock"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["warlock"]["desc"] = DPSMate.L["warlockdesc"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["paladin"]["name"] = DPSMate.L["paladin"]
+		DPSMate.Options.Options[5]["args"]["classes"]["args"]["paladin"]["desc"] = DPSMate.L["paladindesc"]
+		DPSMate.Options.Options[5]["args"]["people"]["name"] = DPSMate.L["certainnames"]
+		DPSMate.Options.Options[5]["args"]["people"]["desc"] = DPSMate.L["certainnamesdesc"]
+		DPSMate.Options.Options[5]["args"]["group"]["name"] = DPSMate.L["grouponly"]
+		DPSMate.Options.Options[5]["args"]["group"]["desc"] = DPSMate.L["grouponlydesc"]
+	end
 end
